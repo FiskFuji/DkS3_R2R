@@ -4,13 +4,16 @@
 #                               DEVELOPED BY:                                  # 
 #                              KIRK C. WORLEY                                  # 
 #                                (c) 2016.                                     # 
-#                           Licensed under GPL 3.0                             # 
+#                        Licensed under GNU GPL 3.0                            # 
 #                For more information about this license, see:                 # 
 #               http://www.gnu.org/licenses/quick-guide-gplv3.html             # 
 #                                                                              #
 ################################################################################
 #                            SPECIAL THANKS:                                   # 
-#                    KYLE P. WORLEY, TYLER J. COCHRAN                          #
+#                KYLE W., TYLER C., KAI D., BRANDON A.                         #
+#                                  AND                                         # 
+#               everyone who encouraged me to attempt this,                    # 
+#       and put up with my constant questions about design choices.            # 
 ################################################################################
 #                                                                              # 
 #                   Welcome to Dark Souls 3 Rags to Riches!                    # 
@@ -48,7 +51,7 @@
 #                                                                              # 
 #   As a side note to any programmer viewing this: I have purposefully         # 
 #   chosen to not take an object-oriented style of programming while making    # 
-#   this. While creating object would be beneficial here, I am leaving that    # 
+#   this. While creating objects would be beneficial here, I am leaving that   # 
 #   up to those who wish to alter the code for their own purposes.             # 
 #                                                                              #
 ################################################################################
@@ -73,19 +76,25 @@ dks.mixer.init()
 dks.init()
 dks.font.init()
 
-#Width, Height of Screen in pixels. If this is changed, the background image
-#will also need to be rescaled to fit the new sizes. <<images/bkgrnd.png>>
-#This will mean the loot-images will be off place as well. Be careful when
-#adjusting these values.
-WIDTH = 950
-HEIGHT = 600
+#------------------------------------------------------------------------------#
+# Width, Height of Screen in pixels. If this is changed, the background images #
+# will also need to be rescaled to fit the new sizes.                          # 
+# Location: <<images/system/intro1.png>>, <<images/system/intro1_1.png>>, etc. # 
+# This will mean the loot-images will be off place as well. Be careful when    #
+# adjusting these values.                                                      # 
+#------------------------------------------------------------------------------#
+#               !!Changing this is NOT recommended.!!                          #
+#------------------------------------------------------------------------------#
+WIDTH       = 950
+HEIGHT      = 600
+DISP        = (WIDTH, HEIGHT)
 
 dks.display.set_caption("Rags to Riches")
 
 ICON        =   dks.image.load("images/system/icon.png")
 dks.display.set_icon(ICON)
 
-screen      =   dks.display.set_mode((WIDTH, HEIGHT))
+screen      =   dks.display.set_mode(DISP)
 CL          =   dks.time.Clock()
 
 RUNNING     =   True
@@ -101,10 +110,13 @@ currentLoot4 =  None;   currentLoot5 =  None;   currentLoot6 =  None;
 currentRoll =   ""
 lootRoll_ON =   False
 
+TXT_CHANGER =   False
+
 INTRO       =   1
 
 FONT        =   "fonts/OptimusPrinceps.ttf"
 FNT         =   dks.font.Font(FONT, 30)
+FNT2        =   dks.font.Font(FONT, 23)
 
 arrow =  ("          x             ",
           "         X.X            ",
@@ -145,67 +157,70 @@ IN_3ON          =   dks.image.load("images/system/intro3_1.png").convert()
 MN_MAIN         =   dks.image.load("images/system/main1.png").convert()
 MN_L            =   dks.image.load("images/system/main1_L.png").convert()
 MN_R            =   dks.image.load("images/system/main1_R.png").convert()
+MN_I            =   dks.image.load("images/system/main1_I.png").convert()
 CMN_COIN        =   dks.image.load("images/system/cmn_coin.png").convert_alpha()
 RARE_COIN       =   dks.image.load("images/system/rare_coin.png").convert_alpha()
 ULTRA_COIN      =   dks.image.load("images/system/ultra_coin.png").convert_alpha()
 MISF_COIN       =   dks.image.load("images/system/misf_coin.png").convert_alpha()
 
-WPN_IMG_NAMES   =   ["AnriSword", "ArstorsSpear", "AstoraGreatsword",
-                     "AstoraStraightSword", "Avelyn", "BanditsKnife",
-                     "BarbedSword", "BastardSword", "BattleAxe",
-                     "BlackBlade", "BlackKnightGA", "BlackKnightGS",
-                     "BlackKnightHalberd", "BlackKnightSword", "Bloodlust",
-                     "BrigandAxe", "BrigandDaggers", "Broadsword",
-                     "BrokenSword", "ButchersKnife", "Caestus",
-                     "CandleDagger", "CarthusCurvedGS", "CarthusCurvedSword",
-                     "CarthusShotel", "CathedralGreatsword", "ChaosBlade",
-                     "Claw", "Claymore", "ClericCandle",
-                     "Club", "CompositeBow", "CorvianDagger",                
-                     "CrescentAxe", "CrescentShotel", "CrystalSageRapier",
-                     "Dagger", "DancersTwinswords", "Darkdrift",
-                     "DarkHand", "DarkSword", "DemonFist",
-                     "DemonGreataxe", "DragonslayerAxe", "DragonslayerCross",
-                     "DragonslayerGA", "DragonslayerSpear", "DragonTooth",
-                     "DrakebloodSword", "DrangHammers", "DrangTwinspears",
-                     "Eleonora", "Estoc", "ExecutionerSword",
-                     "ExileGreatsword", "Falchion", "FarronGreatsword",
-                     "FirelinkGreatsword", "Flamberge", "FourProngedPlow",
-                     "FumeUltraGS", "GargoyleFlameHammer", "GargoyleFlameSpear",
-                     "GhruCurvedSword", "GhruDagger", "GhruSpear",
-                     "Glaive", "GoldenRitualSpear", "GotthardKatanas",
-                     "GotthardTwinswords", "Greataxe", "GreatClub",
-                     "CorvianGreatScythe", "Greatlance", "GreatMace",
-                     "GreatMachete", "GreatScythe", "Greatsword",
-                     "GreatswordJudgement", "GundyrHalberd", "Halberd",
-                     "HandAxe", "HandmaidDagger", "Harpe",
-                     "HeyselPick", "HollowslayerSword", "ImmolationTinder",
-                     "IrithyllRapier", "IrithyllSword", "LargeClub",
-                     "Longsword", "LoriansSword", "LothricGreatsword",
-                     "LothricHolySword", "LothricSpear", "LothricStraightSword",
-                     "Lucerne", "Mace", "MailBreaker",
-                     "ManikinClaw", "ManSerpentAxe", "MoonlightGreatsword",
-                     "MorionBlade", "MornesHammer", "MorningStar",
-                     "Murakumo", "NotchedWhip", "OldKingHammer",
-                     "PaintingCurvedSword", "ParryDagger", "Partizan",
-                     "Pickaxe", "Pike", "PontiffCurvedSword",
-                     "PontiffGreatScythe", "ProfanedGreatsword", "Rapier",
-                     "RedHalberd", "ReinforcedClub", "RicardsRapier",
-                     "SaintBident", "Scimitar", "SellswordTwinblades",
-                     "Shortsword", "Shotel", "SmithHammer",
-                     "SmoughsHammer", "SolderingIron", "Spear",
-                     "SpikedMace", "SpottedWhip", "StormCurvedSword",
-                     "Stormruler", "SunlightSword", "TailboneDagger",
-                     "TailboneSpear", "ThrallAxe", "TwinPrinceSword",
-                     "Uchigatana", "VordtsHammer", "WardenTwinblades",
-                     "Warpick", "WashingPole", "Whip",
-                     "WingedKnightHalberd", "WingedKnightTwinaxes", "WingedSpear",
-                     "WitchLocks", "WolfCurvedGS", "WolfGreatsword",
-                     "WolnirsHolyBlade", "WoodenHammer", "YhormsMachete",
-                     "YorshkasSpear", "Zweihander"]
+WPN_IMG_NAMES       =   ["AnriSword", "ArstorsSpear", "AstoraGreatsword",
+                         "AstoraStraightSword", "Avelyn", "BanditsKnife",
+                         "BarbedSword", "BastardSword", "BattleAxe",
+                         "BlackBlade", "BlackKnightGA", "BlackKnightGS",
+                         "BlackKnightHalberd", "BlackKnightSword", "Bloodlust",
+                         "BrigandAxe", "BrigandDaggers", "Broadsword",
+                         "BrokenSword", "ButchersKnife", "Caestus",
+                         "CandleDagger", "CarthusCurvedGS", "CarthusCurvedSword",
+                         "CarthusShotel", "CathedralGreatsword", "ChaosBlade",
+                         "Claw", "Claymore", "ClericCandle",
+                         "Club", "CompositeBow", "CorvianDagger",                
+                         "CrescentAxe", "CrescentShotel", "CrystalSageRapier",
+                         "Dagger", "DancersTwinswords", "Darkdrift",
+                         "DarkHand", "DarkSword", "DemonFist",
+                         "DemonGreataxe", "DragonslayerAxe", "DragonslayerCross",
+                         "DragonslayerGA", "DragonslayerSpear", "DragonTooth",
+                         "DrakebloodSword", "DrangHammers", "DrangTwinspears",
+                         "Eleonora", "Estoc", "ExecutionerSword",
+                         "ExileGreatsword", "Falchion", "FarronGreatsword",
+                         "FirelinkGreatsword", "Flamberge", "FourProngedPlow",
+                         "FumeUltraGS", "GargoyleFlameHammer", "GargoyleFlameSpear",
+                         "GhruCurvedSword", "GhruDagger", "GhruSpear",
+                         "Glaive", "GoldenRitualSpear", "GotthardKatanas",
+                         "GotthardTwinswords", "Greataxe", "GreatClub",
+                         "CorvianGreatScythe", "Greatlance", "GreatMace",
+                         "GreatMachete", "GreatScythe", "Greatsword",
+                         "GreatswordJudgement", "GundyrHalberd", "Halberd",
+                         "HandAxe", "HandmaidDagger", "Harpe",
+                         "HeyselPick", "HollowslayerSword", "ImmolationTinder",
+                         "IrithyllRapier", "IrithyllSword", "LargeClub",
+                         "Longsword", "LoriansSword", "LothricGreatsword",
+                         "LothricHolySword", "LothricSpear", "LothricStraightSword",
+                         "Lucerne", "Mace", "MailBreaker",
+                         "ManikinClaw", "ManSerpentAxe", "MoonlightGreatsword",
+                         "MorionBlade", "MornesHammer", "MorningStar",
+                         "Murakumo", "NotchedWhip", "OldKingHammer",
+                         "PaintingCurvedSword", "ParryDagger", "Partizan",
+                         "Pickaxe", "Pike", "PontiffCurvedSword",
+                         "PontiffGreatScythe", "ProfanedGreatsword", "Rapier",
+                         "RedHalberd", "ReinforcedClub", "RicardsRapier",
+                         "SaintBident", "Scimitar", "SellswordTwinblades",
+                         "Shortsword", "Shotel", "SmithHammer",
+                         "SmoughsHammer", "SolderingIron", "Spear",
+                         "SpikedMace", "SpottedWhip", "StormCurvedSword",
+                         "Stormruler", "SunlightSword", "TailboneDagger",
+                         "TailboneSpear", "ThrallAxe", "TwinPrinceSword",
+                         "Uchigatana", "VordtsHammer", "WardenTwinblades",
+                         "Warpick", "WashingPole", "Whip",
+                         "WingedKnightHalberd", "WingedKnightTwinaxes", "WingedSpear",
+                         "WitchLocks", "WolfCurvedGS", "WolfGreatsword",
+                         "WolnirsHolyBlade", "WoodenHammer", "YhormsMachete",
+                         "YorshkasSpear", "Zweihander"]
                      
 SHIELD_IMG_NAMES    =   []
 SPELL_IMG_NAMES     =   []
-AMOR_IMG_NAMES      =   []
+ARMOR_IMG_NAMES     =   []
+
+MISF_IMG_NAMES      =   ["m_Cursed"]
 
 #==============================================================================#
 #                   BEGIN LOADING ITEMS                                        # 
@@ -213,29 +228,36 @@ AMOR_IMG_NAMES      =   []
 
 WPN_OBJ	    =   {name: dks.image.load("images/loot/weapons/{}.png".format(name)).convert_alpha()
 			for name in WPN_IMG_NAMES}
+
+MISF_OBJ    =   {name: dks.image.load("images/loot/misfortunes/{}.png".format(name)).convert_alpha()
+			for name in MISF_IMG_NAMES}
+
 SHIELD_OBJ  =   {}
 SPELL_OBJ   =   {}
 ARMOR_OBJ   =   {}
+
 #==============================================================================#
 #                   LOOT TABLES                                                # 
 #==============================================================================#
 
-LOOT_CMN    =   {"Longsword":   WPN_OBJ["Longsword"],
-                 "Broadsword":  WPN_OBJ["Broadsword"],
-                 "Spear":       WPN_OBJ["Spear"]}
+LOOT_CMN    =   {"Longsword":                   WPN_OBJ["Longsword"],
+                 "Broadsword":                  WPN_OBJ["Broadsword"],
+                 "Spear":                       WPN_OBJ["Spear"],
+                 "Winged Knight Twinaxes":      WPN_OBJ["WingedKnightTwinaxes"],
+                 "Painting Guardian's Sword":   WPN_OBJ["PaintingCurvedSword"]}
 
 LOOT_RARE   =   {"Uchigatana":  WPN_OBJ["Uchigatana"],
                  "Chaos Blade": WPN_OBJ["ChaosBlade"]}
 
 LOOT_ULTRA  =   {"Dark Sword":  WPN_OBJ["DarkSword"]}
 
-LOOT_MISF   =   {}
+LOOT_MISF   =   {"Cursed!":     MISF_OBJ["m_Cursed"]}
 
 
 #==============================================================================#
 #                   COLORS DEFINITIONS                                         # 
 #==============================================================================#
-#Color Defs.    =       (R,   G,   B)
+# Color Defs.   =       (R,   G,   B)
 WHITE           =       (255, 255, 255)
 GREEN 	        =       (78,  255, 87)
 YELLOW 	        =       (241, 255, 0)
@@ -244,8 +266,8 @@ PURPLE 	        =       (203, 0,   255)
 RED 	        =       (237, 28,  36)
 BLACK           =       (0,   0,   0)
 
-#Text Color
-TXT_COLOR = YELLOW
+# Initial Text Color
+TXT_COLOR = PURPLE
 
 #==============================================================================#
 #                   FUNCTION DEFINITIONS                                       # 
@@ -268,6 +290,10 @@ def newCursor(arrow):
     cursor, mask = dks.cursors.compile(s2, 'X', '.', 'o')
     size = len(arrow[0]), len(arrow)
     dks.mouse.set_cursor(size, hotspot, cursor, mask)
+
+def setTxtColor(color):
+    global TXT_COLOR
+
 
 def resetLoot():
     global currentLoot1; global currentLoot2; global currentLoot3
@@ -395,6 +421,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
                 if(LOOT_5ON):
                     screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, CMN_COIN, (10, 258), i)
                 dks.display.update()
@@ -415,6 +443,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
                 if(LOOT_5ON):
                     screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, CMN_COIN, (10, 258), 255-i)
                 blitAlpha(screen, LOOT_CMN[currentLoot1], (20, 230), i)
@@ -440,6 +470,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
                 if(LOOT_5ON):
                     screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, CMN_COIN, (166, 258), i)
                 dks.display.update()
@@ -460,6 +492,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
                 if(LOOT_5ON):
                     screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
 
                 blitAlpha(screen, CMN_COIN, (166, 258), 255-i)
                 blitAlpha(screen, LOOT_CMN[currentLoot2], (176, 230), i)
@@ -486,7 +520,9 @@ def lootCoin(category, spot):
                 if(LOOT_4ON):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
                 if(LOOT_5ON):
-                    screen.blit(LOOT_ULTRA[currentLoot5], (648, 230)) 
+                    screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, RARE_COIN, (323, 258), i)
                 dks.display.update()
@@ -507,6 +543,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
                 if(LOOT_5ON):
                     screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, RARE_COIN, (323, 258), 255-i)
                 blitAlpha(screen, LOOT_RARE[currentLoot3], (333, 230), i)
@@ -532,6 +570,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot3], (333, 230))
                 if(LOOT_5ON):
                     screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, RARE_COIN, (480, 258), i)
                 dks.display.update()
@@ -552,6 +592,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot3], (333, 230))
                 if(LOOT_5ON):
                     screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, RARE_COIN, (480, 258), 255-i)
                 blitAlpha(screen, LOOT_RARE[currentLoot4], (490, 230), i)
@@ -579,6 +621,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot3], (333, 230))  
                 if(LOOT_4ON):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, ULTRA_COIN, (636, 258), i)
                 dks.display.update()
@@ -599,6 +643,8 @@ def lootCoin(category, spot):
                     screen.blit(LOOT_RARE[currentLoot3], (333, 230))
                 if(LOOT_4ON):
                     screen.blit(LOOT_RARE[currentLoot4], (490, 230))
+                if(LOOT_6ON):
+                    screen.blit(LOOT_MISF[currentLoot6], (805, 230))
                     
                 blitAlpha(screen, ULTRA_COIN, (636, 258), 255-i)
                 blitAlpha(screen, LOOT_ULTRA[currentLoot5], (648, 230), i)
@@ -606,6 +652,57 @@ def lootCoin(category, spot):
                 CL.tick(600)
 
             LOOT_5ON = True
+
+    elif(category.lower() == "misfortune"):
+        
+        if(spot == 1):
+
+            currentLoot6 = grabLoot("misfortune")
+            
+            for i in range(255): 
+                screen.blit(MN_MAIN, (0, 0))
+
+                if(lootRoll_ON):
+                    screen.blit(FNT.render(currentRoll, 1, (TXT_COLOR)), (225, 113))
+                if(LOOT_1ON):
+                    screen.blit(LOOT_CMN[currentLoot1], (20, 230))
+                if(LOOT_2ON):
+                    screen.blit(LOOT_CMN[currentLoot2], (176, 230))
+                if(LOOT_3ON):
+                    screen.blit(LOOT_RARE[currentLoot3], (333, 230))  
+                if(LOOT_4ON):
+                    screen.blit(LOOT_RARE[currentLoot4], (490, 230))
+                if(LOOT_5ON):
+                    screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                    
+                blitAlpha(screen, MISF_COIN, (795, 258), i)
+                dks.display.update()
+                CL.tick(300)
+
+            dks.time.delay(1000)
+
+            for i in range(255): 
+                screen.blit(MN_MAIN, (0, 0))
+
+                if(lootRoll_ON):
+                    screen.blit(FNT.render(currentRoll, 1, (TXT_COLOR)), (225, 113))
+                if(LOOT_1ON):
+                    screen.blit(LOOT_CMN[currentLoot1], (20, 230))
+                if(LOOT_2ON):
+                    screen.blit(LOOT_CMN[currentLoot2], (176, 230))
+                if(LOOT_3ON):
+                    screen.blit(LOOT_RARE[currentLoot3], (333, 230))
+                if(LOOT_4ON):
+                    screen.blit(LOOT_RARE[currentLoot4], (490, 230))
+                if(LOOT_5ON):
+                    screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
+                    
+                blitAlpha(screen, MISF_COIN, (795, 258), 255-i)
+                blitAlpha(screen, LOOT_MISF[currentLoot6], (805, 230), i)
+                dks.display.update()
+                CL.tick(600)
+
+            LOOT_6ON = True
             
 #==============================================================================#
 #                   INTRO SCREEN 1: TITLE                                      # 
@@ -806,6 +903,8 @@ if(INTRO == 4):
     inRARE2     =   dks.Rect((490, 230), (125, 216))
     inULTRA     =   dks.Rect((648, 230), (125, 216))
     inMISF      =   dks.Rect((802, 230), (125, 216))
+    inTXTC      =   dks.Rect((890, 22),  (42, 41))
+    inABT       =   dks.Rect((890, 68),  (40, 40))
     
     #Fade out
     for i in range(255): 
@@ -846,6 +945,10 @@ while(RUNNING):
     else:
         screen.blit(MN_MAIN, (0, 0))
 
+    if((inCOMM1.collidepoint(pos) == 1) & (LOOT_1ON == True)):
+        screen.blit(MN_I, (0, 0))
+        screen.blit(FNT2.render(currentLoot1, 1, (TXT_COLOR)), (612, 178))
+        
     if(lootRoll_ON):
         screen.blit(FNT.render(currentRoll, 1, (TXT_COLOR)), (225, 113))
         
@@ -864,6 +967,9 @@ while(RUNNING):
     if(LOOT_5ON):
         screen.blit(LOOT_ULTRA[currentLoot5], (648, 230))
 
+    if(LOOT_6ON):
+        screen.blit(LOOT_MISF[currentLoot6], (805, 230)) 
+        
     dks.display.update()
     
     #Event Handler:
@@ -908,8 +1014,10 @@ while(RUNNING):
             lootCoin("ultra", 1)
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-
-
+        elif event.type == (dks.MOUSEBUTTONUP) and (inMISF.collidepoint(pos) == 1) and (LOOT_CLICK6 == False):
+            LOOT_CLICK6 = True
+            lootCoin("misfortune", 1)
+            dks.event.clear(dks.MOUSEBUTTONUP)
     
 
 
