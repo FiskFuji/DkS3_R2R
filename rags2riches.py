@@ -158,6 +158,15 @@ MN_MAIN         =   dks.image.load("images/system/main1.png").convert()
 MN_L            =   dks.image.load("images/system/main1_L.png").convert()
 MN_R            =   dks.image.load("images/system/main1_R.png").convert()
 MN_I            =   dks.image.load("images/system/main1_I.png").convert()
+CHNGR_MAIN      =   dks.image.load("images/system/clr_changer.png").convert()
+CHNGR_RED       =   dks.image.load("images/system/changer_Red.png").convert()
+CHNGR_ORANGE    =   dks.image.load("images/system/changer_Orange.png").convert()
+CHNGR_YELLOW    =   dks.image.load("images/system/changer_Yellow.png").convert()
+CHNGR_GREEN     =   dks.image.load("images/system/changer_Green.png").convert()
+CHNGR_BLUE      =   dks.image.load("images/system/changer_Blue.png").convert()
+CHNGR_PURPLE    =   dks.image.load("images/system/changer_Purple.png").convert()
+CHNGR_CYAN      =   dks.image.load("images/system/changer_Cyan.png").convert()
+CHNGR_WHITE     =   dks.image.load("images/system/changer_White.png").convert()
 CMN_COIN        =   dks.image.load("images/system/cmn_coin.png").convert_alpha()
 RARE_COIN       =   dks.image.load("images/system/rare_coin.png").convert_alpha()
 ULTRA_COIN      =   dks.image.load("images/system/ultra_coin.png").convert_alpha()
@@ -246,24 +255,26 @@ LOOT_CMN    =   {"Longsword":                   WPN_OBJ["Longsword"],
                  "Winged Knight Twinaxes":      WPN_OBJ["WingedKnightTwinaxes"],
                  "Painting Guardian's Sword":   WPN_OBJ["PaintingCurvedSword"]}
 
-LOOT_RARE   =   {"Uchigatana":  WPN_OBJ["Uchigatana"],
-                 "Chaos Blade": WPN_OBJ["ChaosBlade"]}
+LOOT_RARE   =   {"Uchigatana":                  WPN_OBJ["Uchigatana"],
+                 "Chaos Blade":                 WPN_OBJ["ChaosBlade"]}
 
-LOOT_ULTRA  =   {"Dark Sword":  WPN_OBJ["DarkSword"]}
+LOOT_ULTRA  =   {"Dark Sword":                  WPN_OBJ["DarkSword"]}
 
-LOOT_MISF   =   {"Cursed!":     MISF_OBJ["m_Cursed"]}
+LOOT_MISF   =   {"Cursed!":                     MISF_OBJ["m_Cursed"]}
 
 
 #==============================================================================#
 #                   COLORS DEFINITIONS                                         # 
 #==============================================================================#
 # Color Defs.   =       (R,   G,   B)
-WHITE           =       (255, 255, 255)
-GREEN 	        =       (78,  255, 87)
-YELLOW 	        =       (241, 255, 0)
-BLUE 	        =       (80,  255, 239)
-PURPLE 	        =       (203, 0,   255)
 RED 	        =       (237, 28,  36)
+ORANGE          =       (255, 69,  0)
+YELLOW 	        =       (241, 255, 0)
+GREEN 	        =       (78,  255, 87)
+BLUE 	        =       (25,  25,  112)
+PURPLE 	        =       (203, 0,   255)
+CYAN            =       (0,   255, 255)
+WHITE           =       (255, 255, 255)
 BLACK           =       (0,   0,   0)
 
 # Initial Text Color
@@ -294,6 +305,78 @@ def newCursor(arrow):
 def setTxtColor(color):
     global TXT_COLOR
 
+    TXT_COLOR = color
+
+def textChanger():
+    global TXT_COLOR; global TXT_CHANGER;
+    global RED; global ORANGE; global YELLOW; global GREEN;
+    global BLUE; global PURPLE; global CYAN; global WHITE
+
+    tempColor   = TXT_COLOR
+    
+    inDONE      = dks.Rect((368, 0), (32, 32))
+    inRED       = dks.Rect((24, 43), (60, 64))
+    inORANGE    = dks.Rect((119, 43), (60, 64))
+    inYELLOW    = dks.Rect((217, 43), (60, 64))
+    inGREEN     = dks.Rect((313, 43), (60, 64))
+    inBLUE      = dks.Rect((24, 118), (60, 64))
+    inPURPLE    = dks.Rect((119, 118), (60, 64))
+    inCYAN      = dks.Rect((217, 118), (60, 64))
+    inWHITE     = dks.Rect((313, 118), (60, 64))
+
+    while(TXT_CHANGER):
+
+        pos = dks.mouse.get_pos()
+        CL.tick(60)
+        
+        screen.blit(CHNGR_MAIN, (0, 0))
+
+        if(tempColor == RED):
+            screen.blit(CHNGR_RED, (0, 0))
+        elif(tempColor == ORANGE):
+            screen.blit(CHNGR_ORANGE, (0, 0))
+        elif(tempColor == YELLOW):
+            screen.blit(CHNGR_YELLOW, (0, 0))
+        elif(tempColor == GREEN):
+            screen.blit(CHNGR_GREEN, (0, 0))
+        elif(tempColor == BLUE):
+            screen.blit(CHNGR_BLUE, (0, 0))
+        elif(tempColor == PURPLE):
+            screen.blit(CHNGR_PURPLE, (0, 0))
+        elif(tempColor == CYAN):
+            screen.blit(CHNGR_CYAN, (0, 0))
+        elif(tempColor == WHITE):
+            screen.blit(CHNGR_WHITE, (0, 0))
+
+        dks.display.update()
+        
+        for event in dks.event.get():
+            
+            if event.type == dks.MOUSEBUTTONUP and (inRED.collidepoint(pos) == 1):
+                tempColor = RED
+            elif event.type == dks.MOUSEBUTTONUP and (inORANGE.collidepoint(pos) == 1):
+                tempColor = ORANGE
+            elif event.type == dks.MOUSEBUTTONUP and (inYELLOW.collidepoint(pos) == 1):
+                tempColor = YELLOW
+            elif event.type == dks.MOUSEBUTTONUP and (inGREEN.collidepoint(pos) == 1):
+                tempColor = GREEN
+            elif event.type == dks.MOUSEBUTTONUP and (inBLUE.collidepoint(pos) == 1):
+                tempColor = BLUE
+            elif event.type == dks.MOUSEBUTTONUP and (inPURPLE.collidepoint(pos) == 1):
+                tempColor = PURPLE
+            elif event.type == dks.MOUSEBUTTONUP and (inCYAN.collidepoint(pos) == 1):
+                tempColor = CYAN
+            elif event.type == dks.MOUSEBUTTONUP and (inWHITE.collidepoint(pos) == 1):
+                tempColor = WHITE
+            elif event.type == dks.MOUSEBUTTONUP and (inDONE.collidepoint(pos) == 1):
+                setTxtColor(tempColor)
+                TXT_CHANGER = False
+            #If the program is closed, exit:
+            elif event.type == dks.QUIT:
+                RUNNING = False
+                dks.quit()
+                sys.exit()
+                
 
 def resetLoot():
     global currentLoot1; global currentLoot2; global currentLoot3
@@ -338,9 +421,9 @@ def generateRoll():
 
     if(cmn_rand < 100): #10% Chance, 0 common
         currentRoll += "0 Common"
-    elif((cmn_rand >= 100) & (cmn_rand < 805)): #70.5% Chance, 1 common
+    elif((cmn_rand >= 100) & (cmn_rand < 755)): #65.5% Chance, 1 common
         currentRoll += "1 Common"
-    elif(cmn_rand >= 805): #19.5% Chance, 2 common
+    elif(cmn_rand >= 755): #24.5% Chance, 2 common
         currentRoll += "2 Common"
     print ("CMN: ",cmn_rand)
     
@@ -936,10 +1019,10 @@ while(RUNNING):
 
     CL.tick(120)
 
-    if(inGEM.collidepoint(pos) == 1):
+    if((inGEM.collidepoint(pos) == 1) & (TXT_CHANGER == False)):
         screen.blit(MN_L, (0, 0))
         
-    elif(inRESET.collidepoint(pos) == 1):
+    elif((inRESET.collidepoint(pos) == 1) & (TXT_CHANGER == False)):
         screen.blit(MN_R, (0, 0))
         
     else:
@@ -948,6 +1031,26 @@ while(RUNNING):
     if((inCOMM1.collidepoint(pos) == 1) & (LOOT_1ON == True)):
         screen.blit(MN_I, (0, 0))
         screen.blit(FNT2.render(currentLoot1, 1, (TXT_COLOR)), (612, 178))
+        
+    if((inCOMM2.collidepoint(pos) == 1) & (LOOT_2ON == True)):
+        screen.blit(MN_I, (0, 0))
+        screen.blit(FNT2.render(currentLoot2, 1, (TXT_COLOR)), (612, 178))
+
+    if((inRARE1.collidepoint(pos) == 1) & (LOOT_3ON == True)):
+        screen.blit(MN_I, (0, 0))
+        screen.blit(FNT2.render(currentLoot3, 1, (TXT_COLOR)), (612, 178))
+
+    if((inRARE2.collidepoint(pos) == 1) & (LOOT_4ON == True)):
+        screen.blit(MN_I, (0, 0))
+        screen.blit(FNT2.render(currentLoot4, 1, (TXT_COLOR)), (612, 178))
+
+    if((inULTRA.collidepoint(pos) == 1) & (LOOT_5ON == True)):
+        screen.blit(MN_I, (0, 0))
+        screen.blit(FNT2.render(currentLoot5, 1, (TXT_COLOR)), (612, 178))
+
+    if((inMISF.collidepoint(pos) == 1) & (LOOT_6ON == True)):
+        screen.blit(MN_I, (0, 0))
+        screen.blit(FNT2.render(currentLoot6, 1, (TXT_COLOR)), (612, 178)) 
         
     if(lootRoll_ON):
         screen.blit(FNT.render(currentRoll, 1, (TXT_COLOR)), (225, 113))
@@ -981,42 +1084,47 @@ while(RUNNING):
             dks.quit()
             sys.exit()
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inRESET.collidepoint(pos) == 1):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inRESET.collidepoint(pos) == 1) and (TXT_CHANGER == False):
             resetLoot()
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inGEM.collidepoint(pos) == 1):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inGEM.collidepoint(pos) == 1) and (TXT_CHANGER == False):
             generateRoll()
             dks.event.clear(dks.MOUSEBUTTONUP)
             
-        elif event.type == (dks.MOUSEBUTTONUP) and (inCOMM1.collidepoint(pos) == 1) and (LOOT_CLICK1 == False):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inCOMM1.collidepoint(pos) == 1) and (LOOT_CLICK1 == False) and (TXT_CHANGER == False):
             LOOT_CLICK1 = True
             lootCoin("common", 1)
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inCOMM2.collidepoint(pos) == 1) and (LOOT_CLICK2 == False):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inCOMM2.collidepoint(pos) == 1) and (LOOT_CLICK2 == False) and (TXT_CHANGER == False):
             LOOT_CLICK2 = True
             lootCoin("common", 2)
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inRARE1.collidepoint(pos) == 1) and (LOOT_CLICK3 == False):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inRARE1.collidepoint(pos) == 1) and (LOOT_CLICK3 == False) and (TXT_CHANGER == False):
             LOOT_CLICK3 = True
             lootCoin("rare", 1)
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inRARE2.collidepoint(pos) == 1) and (LOOT_CLICK4 == False):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inRARE2.collidepoint(pos) == 1) and (LOOT_CLICK4 == False) and (TXT_CHANGER == False):
             LOOT_CLICK4 = True
             lootCoin("rare", 2)
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inULTRA.collidepoint(pos) == 1) and (LOOT_CLICK5 == False):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inULTRA.collidepoint(pos) == 1) and (LOOT_CLICK5 == False) and (TXT_CHANGER == False):
             LOOT_CLICK5 = True
             lootCoin("ultra", 1)
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inMISF.collidepoint(pos) == 1) and (LOOT_CLICK6 == False):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inMISF.collidepoint(pos) == 1) and (LOOT_CLICK6 == False) and (TXT_CHANGER == False):
             LOOT_CLICK6 = True
             lootCoin("misfortune", 1)
+            dks.event.clear(dks.MOUSEBUTTONUP)
+
+        elif event.type == (dks.MOUSEBUTTONUP) and (inTXTC.collidepoint(pos) == 1) and (TXT_CHANGER == False):
+            TXT_CHANGER = True
+            textChanger()
             dks.event.clear(dks.MOUSEBUTTONUP)
     
 
