@@ -158,19 +158,19 @@ MN_MAIN         =   dks.image.load("images/system/main1.png").convert()
 MN_L            =   dks.image.load("images/system/main1_L.png").convert()
 MN_R            =   dks.image.load("images/system/main1_R.png").convert()
 MN_I            =   dks.image.load("images/system/main1_I.png").convert()
-CHNGR_MAIN      =   dks.image.load("images/system/clr_changer.png").convert()
-CHNGR_RED       =   dks.image.load("images/system/changer_Red.png").convert()
-CHNGR_ORANGE    =   dks.image.load("images/system/changer_Orange.png").convert()
-CHNGR_YELLOW    =   dks.image.load("images/system/changer_Yellow.png").convert()
-CHNGR_GREEN     =   dks.image.load("images/system/changer_Green.png").convert()
-CHNGR_BLUE      =   dks.image.load("images/system/changer_Blue.png").convert()
-CHNGR_PURPLE    =   dks.image.load("images/system/changer_Purple.png").convert()
-CHNGR_CYAN      =   dks.image.load("images/system/changer_Cyan.png").convert()
-CHNGR_WHITE     =   dks.image.load("images/system/changer_White.png").convert()
-CMN_COIN        =   dks.image.load("images/system/cmn_coin.png").convert_alpha()
-RARE_COIN       =   dks.image.load("images/system/rare_coin.png").convert_alpha()
-ULTRA_COIN      =   dks.image.load("images/system/ultra_coin.png").convert_alpha()
-MISF_COIN       =   dks.image.load("images/system/misf_coin.png").convert_alpha()
+CHNGR_MAIN      =   dks.image.load("images/system/clr/clr_changer.png").convert()
+CHNGR_RED       =   dks.image.load("images/system/clr/changer_Red.png").convert()
+CHNGR_ORANGE    =   dks.image.load("images/system/clr/changer_Orange.png").convert()
+CHNGR_YELLOW    =   dks.image.load("images/system/clr/changer_Yellow.png").convert()
+CHNGR_GREEN     =   dks.image.load("images/system/clr/changer_Green.png").convert()
+CHNGR_BLUE      =   dks.image.load("images/system/clr/changer_Blue.png").convert()
+CHNGR_PURPLE    =   dks.image.load("images/system/clr/changer_Purple.png").convert()
+CHNGR_CYAN      =   dks.image.load("images/system/clr/changer_Cyan.png").convert()
+CHNGR_WHITE     =   dks.image.load("images/system/clr/changer_White.png").convert()
+CMN_COIN        =   dks.image.load("images/system/coin/cmn_coin.png").convert_alpha()
+RARE_COIN       =   dks.image.load("images/system/coin/rare_coin.png").convert_alpha()
+ULTRA_COIN      =   dks.image.load("images/system/coin/ultra_coin.png").convert_alpha()
+MISF_COIN       =   dks.image.load("images/system/coin/misf_coin.png").convert_alpha()
 
 WPN_IMG_NAMES       =   ["AnriSword", "ArstorsSpear", "AstoraGreatsword",
                          "AstoraStraightSword", "Avelyn", "BanditsKnife",
@@ -760,7 +760,7 @@ def lootCoin(category, spot):
                     
                 blitAlpha(screen, MISF_COIN, (795, 258), i)
                 dks.display.update()
-                CL.tick(300)
+                CL.tick(600)
 
             dks.time.delay(1000)
 
@@ -783,7 +783,7 @@ def lootCoin(category, spot):
                 blitAlpha(screen, MISF_COIN, (795, 258), 255-i)
                 blitAlpha(screen, LOOT_MISF[currentLoot6], (805, 230), i)
                 dks.display.update()
-                CL.tick(600)
+                CL.tick(1200)
 
             LOOT_6ON = True
             
