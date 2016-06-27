@@ -11,6 +11,9 @@
 ################################################################################
 #                            SPECIAL THANKS:                                   # 
 #                KYLE W., TYLER C., KAI D., BRANDON A.                         #
+#                           AUSTIN (@NE_Austin)                                #
+#               for being an amazing person and always finding                 # 
+#           a way to brighten my day with inspiration. Thank you.              # 
 #                                  AND                                         # 
 #               everyone who encouraged me to attempt this,                    # 
 #       and put up with my constant questions about design choices.            # 
@@ -55,6 +58,92 @@
 #   up to those who wish to alter the code for their own purposes.             # 
 #                                                                              #
 ################################################################################
+#                                                                              #
+#                   !! EASY EDITABLE PARTS FOR PROGRAMMERS !!                  # 
+#                                                                              #
+################################################################################
+
+#==============================================================================#
+#               == USER SPECIFIED LOOT TABLES ==                               #
+#==============================================================================#
+# Set ENABLE_USER_LOOT to True if you would like to use your own loot tables.
+# you can edit the loot tables below.
+# The format for loot tables is as follows:
+#
+# USR_LOOT_[CATEGORY] = {}
+#           This is the category of loot.
+#
+# { <- This begins the dictionary. Do not remove it.
+# } <- This ends the dictionary. Do not remove it.
+#
+#------------------------------------------------------------------------------#
+#               == HOW TO WRITE THE LOOT ENTRIES ==                            #
+#------------------------------------------------------------------------------#
+# Loot structure:
+#
+# Name*, followed by a :, Location**, [Name of Loot item***]  
+# "Weapon Name":          WPN_OBJ["Loot Item Name"]
+#
+#   * Name must be in quotes. What you type here will show up in the
+#       current item bar.
+#
+#   ** Location is one of five dictionaries:
+#       Weapons:        WPN_OBJ[]
+#       Shields:        SHIELD_OBJ[]
+#       Pyro:           SPELL_OBJ[]
+#       Armor:          ARMOR_OBJ[]
+#       Misfortunes:    MISF_OBJ[]
+#
+#   *** Name of loot item must be encased in brackets.
+#           Name should also be in quotes.
+#
+#   If the loot is NOT the last in the list, add a comma after the ]
+#   If you need more help, see the commented example below.
+#------------------------------------------------------------------------------#
+#               == BEGIN USER LOOT ==                                          #
+#------------------------------------------------------------------------------#
+ENABLE_USER_LOOT = False
+
+def enableUserLoot():
+#------------------------------------------------------------------------------#
+#               !! DO NOT REMOVE GLOBAL DECLARATIONS !!                        #
+#------------------------------------------------------------------------------#
+    global LOOT_CMN; global LOOT_RARE; global LOOT_ULTRA; global LOOT_MISF;
+    global WPN_OBJ; global ARMOR_OBJ; global MISF_OBJ; global SHIELD_OBJ; global SPELL_OBJ
+    
+#------------------------------------------------------------------------------#
+#               EDITABLE LOOT TABLES                                           #
+#------------------------------------------------------------------------------#
+#
+#   Example Loot Entry:
+#   USR_LOOT_EXAMPLE    = {"User Weapon":   WPN_OBJ["Longsword"]}
+#                          "Weapon name":   Location ["Object name"],
+#------------------------------------------------------------------------------#
+    USR_LOOT_COMMON     = {} # <- Do NOT remove '}'
+    USR_LOOT_RARE       = {} # <- Do NOT remove '}'
+    USR_LOOT_ULTRA      = {} # <- Do NOT remove '}'
+    USR_LOOT_MISFORTUNE = {} # <- Do NOT remove '}'
+    
+#------------------------------------------------------------------------------#
+#               !! FAILSAFE SYSTEMS - DO NOT EDIT !!                           #
+#------------------------------------------------------------------------------#
+    if(bool(USR_LOOT_COMMON)):
+        LOOT_CMN = USR_LOOT_COMMON
+    if(bool(USR_LOOT_RARE)):
+        LOOT_RARE = USR_LOOT_RARE
+    if(bool(USR_LOOT_ULTRA)):
+        LOOT_ULTRA = USR_LOOT_ULTRA
+    if(bool(USR_LOOT_MISFORTUNE)):
+       LOOT_MISF = USR_LOOT_MISFORTUNE
+#==============================================================================#
+#               == END USER SPECIFIED LOOT TABLES ==                           #
+#==============================================================================#
+
+################################################################################
+#                                                                              #
+#                   !! END OF EASY EDITABLE PARTS FOR PROGRAMMERS !!           # 
+#                                                                              #
+################################################################################
 #==============================================================================#
 #                   BEGIN PROGRAM                                              # 
 #==============================================================================#            
@@ -77,19 +166,33 @@ dks.init()
 dks.font.init()
 
 #------------------------------------------------------------------------------#
+#               !! FOR VERSIONING PURPOSES !!                                  #
+#------------------------------------------------------------------------------#
+VERSION_NO  = "v0.7"
+BETA        = True
+
+if(BETA):
+    VERSION_NO += " BETA"
+    
+CAPTION     = ("Rags to Riches " + str(VERSION_NO))
+
+#------------------------------------------------------------------------------#
+#               !! DO NOT EDIT !!                                              #
+#------------------------------------------------------------------------------#
+dks.display.set_caption(CAPTION)
+
+#------------------------------------------------------------------------------#
 # Width, Height of Screen in pixels. If this is changed, the background images #
 # will also need to be rescaled to fit the new sizes.                          # 
 # Location: <<images/system/intro1.png>>, <<images/system/intro1_1.png>>, etc. # 
 # This will mean the loot-images will be off place as well. Be careful when    #
 # adjusting these values.                                                      # 
 #------------------------------------------------------------------------------#
-#               !!Changing this is NOT recommended.!!                          #
+#               !! Changing this is NOT recommended. !!                        #
 #------------------------------------------------------------------------------#
 WIDTH       = 950
 HEIGHT      = 600
 DISP        = (WIDTH, HEIGHT)
-
-dks.display.set_caption("Rags to Riches")
 
 ICON        =   dks.image.load("images/system/icon.png")
 dks.display.set_icon(ICON)
@@ -167,6 +270,7 @@ CHNGR_BLUE      =   dks.image.load("images/system/clr/changer_Blue.png").convert
 CHNGR_PURPLE    =   dks.image.load("images/system/clr/changer_Purple.png").convert()
 CHNGR_CYAN      =   dks.image.load("images/system/clr/changer_Cyan.png").convert()
 CHNGR_WHITE     =   dks.image.load("images/system/clr/changer_White.png").convert()
+CHNGR_CONFIRM   =   dks.image.load("images/system/clr/clr_confirm.png").convert()
 CMN_COIN        =   dks.image.load("images/system/coin/cmn_coin.png").convert_alpha()
 RARE_COIN       =   dks.image.load("images/system/coin/rare_coin.png").convert_alpha()
 ULTRA_COIN      =   dks.image.load("images/system/coin/ultra_coin.png").convert_alpha()
@@ -224,10 +328,49 @@ WPN_IMG_NAMES       =   ["AnriSword", "ArstorsSpear", "AstoraGreatsword",
                          "WitchLocks", "WolfCurvedGS", "WolfGreatsword",
                          "WolnirsHolyBlade", "WoodenHammer", "YhormsMachete",
                          "YorshkasSpear", "Zweihander"]
-                     
+
+ARMOR_IMG_NAMES     =   ["Alva", "Alva_F", "Antiquated", "Antiquated_F",
+                         "Archdeacon", "Archdeacon_F", "Assassin", "Assassin_F",
+                         "BlackDress", "BlackDress_F", "BlackHand", "BlackHand_F",
+                         "BlackIron", "BlackIron_F", "BlackKnight", "BlackKnight_F",
+                         "BlackLeather", "BlackLeather_F", "Brass", "Brass_F",
+                         "Brigand", "Brigand_F", "Catarina", "Catarina_F",
+                         "Cathedral", "Cathedral_F", "Chain", "Chain_F",
+                         "Clandestine", "Clandestine_F", "ClericBlue", "ClericBlue_F",
+                         "Conjurator", "Conjurator_F", "Cornyx", "Cornyx_F",
+                         "CourtSorcerer", "CourtSorcerer_F", "Dancers", "Dancers_F",
+                         "Dark", "Dark_F", "Deacon", "Deacon_F",
+                         "Deserter", "Deserter_F", "Dragonscale", "Dragonscale_F",
+                         "Dragonslayer", "Dragonslayer_F", "Drakeblood", "Drakeblood_F",
+                         "Drang", "Drang_F", "Eastern", "Eastern_F",
+                         "EliteKnight", "EliteKnight_F", "Evangelist", "Evangelist_F",
+                         "Executioner", "Executioner_F", "Exile", "Exile_F",
+                         "FallenKnight", "FallenKnight_F", "Faraam", "Faraam_F",
+                         "Favor", "Favor_F", "Firekeeper", "Firekeeper_F",
+                         "Firelink", "Firelink_F", "FireWitch", "FireWitch_F",
+                         "Gundyr", "Gundyr_F", "HardLeather", "HardLeather_F",
+                         "Havel", "Havel_F", "Herald", "Herald_F",
+                         "Jailer", "Jailer_F", "Karla", "Karla_F",
+                         "Knight", "Knight_F", "Leather", "Leather_F",
+                         "Legion", "Legion_F", "Leonhard", "Leonhard_F",
+                         "Lorian", "Lorian_F", "Lothric", "Lothric_F",
+                         "Maiden", "Maiden_F", "Masters", "Masters_F",
+                         "Mirrah", "Mirrah_F", "MirrahChain", "MirrahChain_F",
+                         "Morne", "Morne_F", "NamelessKnight", "NamelessKnight_F",
+                         "Northern", "Northern_F", "OldSorcerer", "OldSorcerer_F",
+                         "Outrider", "Outrider_F", "Painting", "Painting_F",
+                         "PaleShade", "PaleShade_F", "PontiffKnight", "PontiffKnight_F",
+                         "Prayer", "Prayer_F", "Pyromancer", "Pyromancer_F",
+                         "Sellsword", "Sellsword_F", "Shadow", "Shadow_F",
+                         "SilverKnight", "SilverKnight_F", "Smough", "Smough_F",
+                         "Sorcerer", "Sorcerer_F", "SunArmor", "SunArmor_F",
+                         "Sunless", "Sunless_F", "Sunset", "Sunset_F",
+                         "Thorns", "Thorns_F", "Warden", "Warden_F",
+                         "WingedKnight", "WingedKnight_F", "WolfKnight", "WolfKnight_F",
+                         "Worker", "Worker_F", "Xanthous", "Xanthous_F"]                     
 SHIELD_IMG_NAMES    =   []
 SPELL_IMG_NAMES     =   []
-ARMOR_IMG_NAMES     =   []
+
 
 MISF_IMG_NAMES      =   ["m_Cursed"]
 
@@ -241,27 +384,50 @@ WPN_OBJ	    =   {name: dks.image.load("images/loot/weapons/{}.png".format(name))
 MISF_OBJ    =   {name: dks.image.load("images/loot/misfortunes/{}.png".format(name)).convert_alpha()
 			for name in MISF_IMG_NAMES}
 
-SHIELD_OBJ  =   {}
-SPELL_OBJ   =   {}
-ARMOR_OBJ   =   {}
+ARMOR_OBJ   =   {name: dks.image.load("images/loot/armor/{}.png".format(name)).convert_alpha()
+			for name in ARMOR_IMG_NAMES}
+
+SHIELD_OBJ  =   {} #TO BE FILLED
+SPELL_OBJ   =   {} # |
+
 
 #==============================================================================#
 #                   LOOT TABLES                                                # 
 #==============================================================================#
-
-LOOT_CMN    =   {"Longsword":                   WPN_OBJ["Longsword"],
-                 "Broadsword":                  WPN_OBJ["Broadsword"],
-                 "Spear":                       WPN_OBJ["Spear"],
-                 "Winged Knight Twinaxes":      WPN_OBJ["WingedKnightTwinaxes"],
-                 "Painting Guardian's Sword":   WPN_OBJ["PaintingCurvedSword"]}
+LOOT_CMN    =   {"Grave Warden Set ":           ARMOR_OBJ["Warden_F"],
+                 "Grave Warden Set":            ARMOR_OBJ["Warden"]}
 
 LOOT_RARE   =   {"Uchigatana":                  WPN_OBJ["Uchigatana"],
                  "Chaos Blade":                 WPN_OBJ["ChaosBlade"]}
 
-LOOT_ULTRA  =   {"Dark Sword":                  WPN_OBJ["DarkSword"]}
+LOOT_ULTRA  =   {"Black Knight Greataxe":       WPN_OBJ["BlackKnightGA"],
+                 "Black Knight Glaive":         WPN_OBJ["BlackKnightHalberd"],
+                 "Butchers Knife":              WPN_OBJ["ButchersKnife"],
+                 "Dancer's Enchanted Swords":   WPN_OBJ["DancersTwinswords"],
+                 "Dark Sword":                  WPN_OBJ["DarkSword"],
+                 "Dragonslayer Swordspear":     WPN_OBJ["DragonslayerCross"],
+                 "Dragonslayer Greataxe":       WPN_OBJ["DragonslayerGA"],
+                 "Estoc":                       WPN_OBJ["Estoc"],
+                 "Exile Greatsword":            WPN_OBJ["ExileGreatsword"],
+                 "Farron Greatsword":           WPN_OBJ["FarronGreatsword"],
+                 "Fume Ultra Greatsword":       WPN_OBJ["FumeUltraGS"],
+                 "Gotthard Twinswords":         WPN_OBJ["GotthardTwinswords"],
+                 "Gundyr's Halberd":            WPN_OBJ["GundyrHalberd"],
+                 "Lothric's Holy Sword":        WPN_OBJ["LothricHolySword"],
+                 "Morne's Great Hammer":        WPN_OBJ["MornesHammer"],
+                 "Profaned Greatsword":         WPN_OBJ["ProfanedGreatsword"],
+                 "Smough's Great Hammer":       WPN_OBJ["SmoughsHammer"],
+                 "Sunlight Straight Sword":     WPN_OBJ["SunlightSword"],
+                 "Twin Princes' Sword":         WPN_OBJ["TwinPrinceSword"],
+                 "Washing Pole":                WPN_OBJ["WashingPole"],
+                 "Witch's Locks":               WPN_OBJ["WitchLocks"],
+                 "Wolf Knight Greatsword":      WPN_OBJ["WolfGreatsword"],
+                 "Yhorm's Great Machete":       WPN_OBJ["YhormsMachete"]}
 
 LOOT_MISF   =   {"Cursed!":                     MISF_OBJ["m_Cursed"]}
 
+if(ENABLE_USER_LOOT == True):
+    enableUserLoot()
 
 #==============================================================================#
 #                   COLORS DEFINITIONS                                         # 
@@ -348,6 +514,9 @@ def textChanger():
         elif(tempColor == WHITE):
             screen.blit(CHNGR_WHITE, (0, 0))
 
+        if(inDONE.collidepoint(pos) == 1):
+            screen.blit(CHNGR_CONFIRM, (368, 0))
+            
         dks.display.update()
         
         for event in dks.event.get():
@@ -760,7 +929,7 @@ def lootCoin(category, spot):
                     
                 blitAlpha(screen, MISF_COIN, (795, 258), i)
                 dks.display.update()
-                CL.tick(600)
+                CL.tick(300)
 
             dks.time.delay(1000)
 
@@ -783,7 +952,7 @@ def lootCoin(category, spot):
                 blitAlpha(screen, MISF_COIN, (795, 258), 255-i)
                 blitAlpha(screen, LOOT_MISF[currentLoot6], (805, 230), i)
                 dks.display.update()
-                CL.tick(1200)
+                CL.tick(600)
 
             LOOT_6ON = True
             
