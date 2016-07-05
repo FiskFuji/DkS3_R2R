@@ -622,7 +622,7 @@ def includePyro():
                        "Carthus Flame Arc":     SPELL_OBJ["CarthusFlameArc"],
                        "Chaos Bed Vestiges":    SPELL_OBJ["ChaosBedVestiges"],
                        "Great Chaos Fire Orb":  SPELL_OBJ["GreatChaosFireOrb"],
-                       "Warmth":                SPELL_OBJ["Warmth"]}
+                       "Warmth":                SPELL_OBJ["Warmth"]})
 
 def setTxtColor(color):
     global TXT_COLOR
