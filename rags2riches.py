@@ -413,7 +413,7 @@ SHIELD_IMG_NAMES    =   ["AncientDragon", "BlackIron", "BlackKnight", "BlueWoode
                          "Bonewheel", "Buckler", "CaduceusRound", "Carthus",
                          "CathedralKnight", "Crest", "Crimson", "CurseWard",
                          "DragonCrest", "Dragonslayer", "EasternIron", "EastWest",
-                         "ElkbornRound", "GhruRotshield", "GoldenFalcon", "GoldenWingCrest",
+                         "ElkhornRound", "GhruRotshield", "GoldenFalcon", "GoldenWingCrest",
                          "GrassCrest", "GreatshieldOfGlory", "Havels", "Hawkwoods",
                          "IronRound", "Kite", "Knight", "LargeLeather",
                          "Leather", "Llewellyn", "LothricGreatshield", "LothricKnight",
@@ -421,7 +421,7 @@ SHIELD_IMG_NAMES    =   ["AncientDragon", "BlackIron", "BlackKnight", "BlueWoode
                          "Porcine", "Round", "SacredBloom", "ShieldOfWant",
                          "SilverEagleKite", "SilverKnight", "SmallLeather", "Spiked",
                          "SpiritTreeCrest", "Stone", "StoneParma", "Sunlight",
-                         "Sunset", "Target", "WarriorsRound", "WolfsKnight", "Wooden"]
+                         "Sunset", "Target", "WarriorsRound", "WolfKnights", "Wooden"]
 
 SPELL_IMG_NAMES     =   ["AcidSurge", "BlackFireOrb", "BlackFlame", "BlackSerpent",
                          "BoulderHeave", "BurstingFireball", "CarthusBeacon", "CarthusFlameArc",
@@ -445,7 +445,7 @@ CONS_IMG_NAMES      =   ["BlackFirebomb_5", "BlackFirebomb_10", "CarthusRouge_5"
                          "HumanResin_5", "HumanResin_10", "Kukri_5",
                          "Kukri_10", "LightningUrn_5", "LightningUrn_10",
                          "PaleResin_5", "PaleResin_10", "PoisonThrowingKnife_5",
-                         "PosionThrowingKnife_10", "RopeBlackFirebomb_5", "RopeBlackFirebomb_10",
+                         "PoisonThrowingKnife_10", "RopeBlackFirebomb_5", "RopeBlackFirebomb_10",
                          "RopeFirebomb_5", "RopeFirebomb_10", "RottenResin_5",
                          "RottenResin_10", "ThrowingKnife_5", "ThrowingKnife_10",
                          "Repaired"]
@@ -573,9 +573,6 @@ LOOT_MISF   =   {"Chest Broken":                MISF_OBJ["Chest"],
 if(ENABLE_USER_LOOT == True):
     enableUserLoot()
 
-if((INCL_PYRO == True) and (DIFF == 1)):
-    includePyro()
-
 #==============================================================================#
 #                   COLORS DEFINITIONS                                         # 
 #==============================================================================#
@@ -623,6 +620,8 @@ def includePyro():
                        "Chaos Bed Vestiges":    SPELL_OBJ["ChaosBedVestiges"],
                        "Great Chaos Fire Orb":  SPELL_OBJ["GreatChaosFireOrb"],
                        "Warmth":                SPELL_OBJ["Warmth"]})
+    LOOT_RARE.update({"Great Combustion":       SPELL_OBJ["GreatCombustion"],
+                      "Chaos Storm":            SPELL_OBJ["ChaosStorm"]})
 
 def setTxtColor(color):
     global TXT_COLOR
@@ -786,7 +785,9 @@ def generateRoll():
             currentRoll = "1 Common, 0 Rare, 0 Ultra, 0 Misfortune"
         elif(staleRand >= 7):
             currentRoll = "0 Common, 1 Rare, 0 Ultra, 0 Misfortune" 
-    
+
+    print("IP: ", INCL_PYRO)
+    print("DIFF: ", DIFF)
     lootRoll_ON = True
 
 def grabLoot(category):
@@ -1390,7 +1391,8 @@ while(INTRO == 3):
             dks.quit()
             sys.exit()    
     
-
+if((INCL_PYRO == True) and (DIFF == 1)):
+    includePyro()
 #==============================================================================#
 #                   FOURTH INTRO SCREEN: RULES OF R2R                          # 
 #==============================================================================#
@@ -1602,7 +1604,7 @@ while(RUNNING):
 
         elif event.type == (dks.MOUSEBUTTONUP) and (inRESET.collidepoint(pos) == 1) and (TXT_CHANGER == False):
             if not (MUTE_FX):
-                reset_fx.play()
+                switch2_fx.play()
             resetLoot()
             dks.event.clear(dks.MOUSEBUTTONUP)
 
