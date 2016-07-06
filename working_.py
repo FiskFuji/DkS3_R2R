@@ -39,6 +39,10 @@ for i in range(255):
 
 
 while 1:
+    clock.tick(1)
+
+    print("Mouse?: ", pygame.mouse.get_focused())
+    print("Active?: ", pygame.display.get_active())
 
     for event in pygame.event.get():
 

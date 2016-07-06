@@ -234,10 +234,14 @@ currentRoll =   ""
 lootRoll_ON =   False
 
 TXT_CHANGER =   False
+MAIN_HELP   =   False
+DHELP       =   False
 
 MUTE_FX     =   False
 INCL_PYRO   =   False
+TUT_ARROW   =   True
 
+ARROW_FRAME =   0
 DIFF        =   1
 INTRO       =   1
 
@@ -299,8 +303,11 @@ MN_L            =   dks.image.load("images/system/main1_L.png").convert()
 MN_R            =   dks.image.load("images/system/main1_R.png").convert()
 MN_I            =   dks.image.load("images/system/main1_I.png").convert()
 ABOUT_SCREEN    =   dks.image.load("images/system/aboutScreen.png").convert()
+MN_HELPSCREEN   =   dks.image.load("images/system/help_screen.png").convert()
+DIFF_HELP       =   dks.image.load("images/system/difficulty_help.png").convert()
 MUTE_ICON       =   dks.image.load("images/system/muted.png").convert()
 UNMUTE_ICON     =   dks.image.load("images/system/unmuted.png").convert()
+G_ARROW         =   dks.image.load("images/system/GreenArrow.png").convert_alpha()
 CHNGR_MAIN      =   dks.image.load("images/system/clr/clr_changer.png").convert()
 CHNGR_RED       =   dks.image.load("images/system/clr/changer_Red.png").convert()
 CHNGR_ORANGE    =   dks.image.load("images/system/clr/changer_Orange.png").convert()
@@ -620,13 +627,92 @@ def includePyro():
                        "Chaos Bed Vestiges":    SPELL_OBJ["ChaosBedVestiges"],
                        "Great Chaos Fire Orb":  SPELL_OBJ["GreatChaosFireOrb"],
                        "Warmth":                SPELL_OBJ["Warmth"]})
-    LOOT_RARE.update({"Great Combustion":       SPELL_OBJ["GreatCombustion"],
-                      "Chaos Storm":            SPELL_OBJ["ChaosStorm"]})
+    LOOT_RARE.update( {"Great Combustion":      SPELL_OBJ["GreatCombustion"],
+                       "Chaos Storm":           SPELL_OBJ["ChaosStorm"]})
 
 def setTxtColor(color):
     global TXT_COLOR
     
     TXT_COLOR = color
+
+def helpScreen():
+    global TUT_ARROW; global MAIN_HELP; global MUTE_FX
+
+    inCLOSE     =   dks.Rect((724, 120), (29, 31))
+    
+    while(MAIN_HELP == True):
+
+        pos = dks.mouse.get_pos()
+        CL.tick(60)
+        
+        screen.blit(MN_HELPSCREEN, (187, 112))
+        dks.display.update()
+        
+        for event in dks.event.get():
+
+            if event.type == (dks.MOUSEBUTTONUP) and (inCLOSE.collidepoint(pos) == 1):
+                if not (MUTE_FX):
+                    switch_fx.play()
+                MAIN_HELP = False
+            
+            elif event.type == dks.QUIT:
+                    RUNNING = False
+                    dks.quit()
+                    sys.exit()
+                
+    
+def updateArrow():
+    global ARROW_FRAME
+
+    if(ARROW_FRAME == 0):
+        blitAlpha(screen, G_ARROW, (789, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 1):
+        blitAlpha(screen, G_ARROW, (788, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 2):
+        blitAlpha(screen, G_ARROW, (787, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 3):
+        blitAlpha(screen, G_ARROW, (786, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 4):
+        blitAlpha(screen, G_ARROW, (785, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 5):
+        blitAlpha(screen, G_ARROW, (784, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 6):
+        blitAlpha(screen, G_ARROW, (783, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 7):
+        blitAlpha(screen, G_ARROW, (782, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 8):
+        blitAlpha(screen, G_ARROW, (783, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 9):
+        blitAlpha(screen, G_ARROW, (784, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 10):
+        blitAlpha(screen, G_ARROW, (785, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 11):
+        blitAlpha(screen, G_ARROW, (786, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 12):
+        blitAlpha(screen, G_ARROW, (787, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 13):
+        blitAlpha(screen, G_ARROW, (788, 23), 255)
+        dks.display.update()
+    elif(ARROW_FRAME == 14):
+        blitAlpha(screen, G_ARROW, (789, 23), 255)
+        dks.display.update()
+        ARROW_FRAME = 0
+        
+    if(ARROW_FRAME < 14):
+        ARROW_FRAME += 1
 
 def textChanger():
     global TXT_COLOR; global TXT_CHANGER;
@@ -739,11 +825,10 @@ def generateRoll():
 
     currentRoll = ""
 
-    for i in range(rnd.randint(1, 5)):
-        cmn_rand    = rnd.randint(0, 1000)
-        rare_rand   = rnd.randint(0, 1000)
-        ultra_rand  = rnd.randint(0, 1000)
-        misf_rand   = rnd.randint(0, 1000)
+    cmn_rand    = rnd.randint(0, 1000)
+    rare_rand   = rnd.randint(0, 1000)
+    ultra_rand  = rnd.randint(0, 1000)
+    misf_rand   = rnd.randint(0, 1000)
 
     if(cmn_rand < 100): #10% Chance, 0 common
         currentRoll += "0 Common"
@@ -779,15 +864,14 @@ def generateRoll():
         currentRoll += "1 Misfortune"
     print ("MISF: ",misf_rand)
 
-    if((cmn_rand < 100) & (rare_rand < 720) & (ultra_rand < 985) & (misf_rand < 945)):
-        staleRand = rnd.randint(1, 9)
+    # If you get nothing, 70% chance for 1 common, 30% chance for 1 rare.
+    if((cmn_rand < 100) & (rare_rand < 720) & (ultra_rand < 985)):
+        staleRand = rnd.randint(0, 9)
         if(staleRand < 7):
             currentRoll = "1 Common, 0 Rare, 0 Ultra, 0 Misfortune"
         elif(staleRand >= 7):
             currentRoll = "0 Common, 1 Rare, 0 Ultra, 0 Misfortune" 
 
-    print("IP: ", INCL_PYRO)
-    print("DIFF: ", DIFF)
     lootRoll_ON = True
 
 def grabLoot(category):
@@ -1302,6 +1386,8 @@ if(INTRO == 3):
     inEASY          =   dks.Rect((39, 55),  (415, 444))
     inHARD          =   dks.Rect((496, 55), (415, 444))
     inPYRO          =   dks.Rect((465, 525), (150, 65))
+    inDHELP     =   dks.Rect((455, 7),   (41, 37))
+    inDCLOSE    =   dks.Rect((724, 120), (29, 31))
     
     #Fade out
     for i in range(255): 
@@ -1339,7 +1425,7 @@ while(INTRO == 3):
         screen.blit(DIFF_H, (0, 0))
         screen.blit(PYRO_DISABLE, (465, 525))
     
-    if(inCONTINUE.collidepoint(pos) == 1):
+    if((inCONTINUE.collidepoint(pos) == 1) and (not DHELP)):
         if(DIFF == 1):
             if(INCL_PYRO):
                 screen.blit(DIFF_E2, (0, 0))
@@ -1359,31 +1445,43 @@ while(INTRO == 3):
         screen.blit(PYRO_ON, (465, 525))
     elif ((not (INCL_PYRO)) and (DIFF == 1)):
         screen.blit(PYRO_OFF, (465, 525))
+
+    if(DHELP):
+        screen.blit(DIFF_HELP, (187, 112))
+        dks.display.update()
             
     #Event Handler:
     for event in dks.event.get():
 
-        if event.type == dks.MOUSEBUTTONUP and (inCONTINUE.collidepoint(pos) == 1):
+        if event.type == dks.MOUSEBUTTONUP and (inCONTINUE.collidepoint(pos) == 1) and (not DHELP):
             select_fx.play()
             INTRO = 4
 
-        elif event.type == dks.MOUSEBUTTONUP and (inEASY.collidepoint(pos) == 1):
+        elif event.type == dks.MOUSEBUTTONUP and (inEASY.collidepoint(pos) == 1) and (not DHELP):
             if(DIFF == 2):
                 switch2_fx.play()
                 DIFF = 1
 
-        elif event.type == dks.MOUSEBUTTONUP and (inHARD.collidepoint(pos) == 1):
+        elif event.type == dks.MOUSEBUTTONUP and (inHARD.collidepoint(pos) == 1) and (not DHELP):
             if(DIFF == 1):
                 switch2_fx.play()
                 DIFF = 2
 
-        elif event.type == dks.MOUSEBUTTONUP and (inPYRO.collidepoint(pos) == 1):
+        elif event.type == dks.MOUSEBUTTONUP and (inPYRO.collidepoint(pos) == 1) and (not DHELP):
             if(DIFF == 1):
                 switch_fx.play()
                 if(INCL_PYRO):
                     INCL_PYRO = False
                 else:
-                    INCL_PYRO = True                
+                    INCL_PYRO = True
+
+        elif event.type == dks.MOUSEBUTTONUP and (inDHELP.collidepoint(pos) == 1) and (not DHELP):
+            switch2_fx.play()
+            DHELP = True
+
+        elif event.type == dks.MOUSEBUTTONUP and (inDCLOSE.collidepoint(pos) == 1) and (DHELP):
+            switch_fx.play()
+            DHELP = False
                 
         #If the program is closed, exit:
         elif event.type == dks.QUIT:
@@ -1454,11 +1552,11 @@ while(INTRO == 4):
     
     #Event Handler:
     for event in dks.event.get():
-
+    
         if event.type == dks.MOUSEBUTTONUP and (inSTART.collidepoint(pos) == 1):
             select_fx.play()
             INTRO = 5
-
+                
         #If the program is closed, exit:
         elif event.type == dks.QUIT:
             RUNNING = False
@@ -1482,6 +1580,7 @@ if(INTRO == 5):
     inTXTC      =   dks.Rect((890, 22),  (42, 41))
     inABT       =   dks.Rect((890, 68),  (40, 40))
     inMUTE      =   dks.Rect((20, 517),  (29, 25))
+    inHELP      =   dks.Rect((845, 21),  (41, 41))
     
     #Fade out
     for i in range(255): 
@@ -1574,7 +1673,7 @@ while(RUNNING):
     elif(not MUTE_FX):
         screen.blit(UNMUTE_ICON, (20, 517))
             
-    if(inABT.collidepoint(pos) == 1):
+    if((inABT.collidepoint(pos) == 1) and (not TUT_ARROW)):
         screen.blit(ABOUT_SCREEN, (187, 112))
         screen.blit(FNT2.render(ABOUT_TXT[0], 1, (TXT_COLOR)), (230, 140))
         screen.blit(FNT2.render(ABOUT_TXT[1], 1, (TXT_COLOR)), (200, 180))
@@ -1591,6 +1690,10 @@ while(RUNNING):
         screen.blit(FNT.render(CAPTION, 1, (TXT_COLOR)), (324, 445))
         dks.display.update()
 
+    if(TUT_ARROW):
+        CL.tick(20)
+        updateArrow()
+        
     dks.display.update()
     
     #Event Handler:
@@ -1644,12 +1747,21 @@ while(RUNNING):
             lootCoin("misfortune", 1)
             dks.event.clear(dks.MOUSEBUTTONUP)
 
-        elif event.type == (dks.MOUSEBUTTONUP) and (inMUTE.collidepoint(pos) == 1):
+        elif event.type == (dks.MOUSEBUTTONUP) and (inMUTE.collidepoint(pos) == 1) and (TXT_CHANGER == False):
             if(MUTE_FX):
                 switch2_fx.play()
                 MUTE_FX = False
             else:
                 MUTE_FX = True
+            dks.event.clear(dks.MOUSEBUTTONUP)
+
+        elif event.type == (dks.MOUSEBUTTONUP) and (inHELP.collidepoint(pos) == 1) and (TXT_CHANGER == False) and (MAIN_HELP == False):
+            if not (MUTE_FX):
+                switch_fx.play()
+            if(TUT_ARROW):
+                TUT_ARROW = False
+            MAIN_HELP = True
+            helpScreen()
             dks.event.clear(dks.MOUSEBUTTONUP)
 
         elif event.type == (dks.MOUSEBUTTONUP) and (inTXTC.collidepoint(pos) == 1) and (TXT_CHANGER == False):
