@@ -115,7 +115,8 @@ def enableUserLoot():
 #               !! DO NOT REMOVE GLOBAL DECLARATIONS !!                        #
 #------------------------------------------------------------------------------#
     global LOOT_CMN; global LOOT_RARE; global LOOT_ULTRA; global LOOT_MISF;
-    global WPN_OBJ; global ARMOR_OBJ; global MISF_OBJ; global SHIELD_OBJ; global SPELL_OBJ; global CONS_OBJ
+    global WPN_OBJ; global ARMOR_OBJ; global MISF_OBJ; global SHIELD_OBJ;
+    global SPELL_OBJ; global CONS_OBJ
     
 #------------------------------------------------------------------------------#
 #               EDITABLE LOOT TABLES                                           #
@@ -428,7 +429,8 @@ SHIELD_IMG_NAMES    =   ["AncientDragon", "BlackIron", "BlackKnight", "BlueWoode
                          "Porcine", "Round", "SacredBloom", "ShieldOfWant",
                          "SilverEagleKite", "SilverKnight", "SmallLeather", "Spiked",
                          "SpiritTreeCrest", "Stone", "StoneParma", "Sunlight",
-                         "Sunset", "Target", "WarriorsRound", "WolfKnights", "Wooden"]
+                         "Sunset", "Target", "TwinDragon", "WarriorsRound", "WolfKnights",
+                         "Wooden"]
 
 SPELL_IMG_NAMES     =   ["AcidSurge", "BlackFireOrb", "BlackFlame", "BlackSerpent",
                          "BoulderHeave", "BurstingFireball", "CarthusBeacon", "CarthusFlameArc",
@@ -500,10 +502,198 @@ CONS_OBJ    =   {name: dks.image.load("images/loot/consumables/{}.png".format(na
 # Place a space after a FULL armor set key, so dictionaries make it a new key. #
 #------------------------------------------------------------------------------#
 
-LOOT_CMN    =   {"Longsword":                   WPN_OBJ["Longsword"]}
+LOOT_CMN    =   {"Longsword":                   WPN_OBJ["Longsword"],
+                 "Astora Straight Sword":       WPN_OBJ["AstoraStraightSword"],
+                 "Bandit's Knife":              WPN_OBJ["BanditsKnife"],
+                 "Bastard Sword":               WPN_OBJ["BastardSword"],
+                 "Brigand Axe":                 WPN_OBJ["BrigandAxe"],
+                 "Brigand Twindaggers":         WPN_OBJ["BrigandDaggers"],
+                 "Broadsword":                  WPN_OBJ["Broadsword"],
+                 "Caestus":                     WPN_OBJ["Caestus"],
+                 "Claws":                       WPN_OBJ["Claw"],
+                 "Claymore":                    WPN_OBJ["Claymore"],
+                 "Cleric's Candlestick":        WPN_OBJ["ClericCandle"],
+                 "Club":                        WPN_OBJ["Club"],
+                 "Crescent Moon Sword":         WPN_OBJ["CrescentShotel"],
+                 "Dagger":                      WPN_OBJ["Dagger"],
+                 "Executioner's Sword":         WPN_OBJ["ExecutionerSword"],
+                 "Four Pronged Plow":           WPN_OBJ["FourProngedPlow"],
+                 "Rotten Ghru Curved Sword":    WPN_OBJ["GhruCurvedSword"],
+                 "Glaive":                      WPN_OBJ["Glaive"],
+                 "Greatlance":                  WPN_OBJ["Greatlance"],
+                 "Great Mace":                  WPN_OBJ["GreatMace"],
+                 "Flamberge":                   WPN_OBJ["Flamberge"],
+                 "Rotten Ghru Spear":           WPN_OBJ["GhruSpear"],
+                 "Halberd":                     WPN_OBJ["Halberd"],
+                 "Hand Axe":                    WPN_OBJ["HandAxe"],
+                 "Harpe":                       WPN_OBJ["Harpe"],
+                 "Irithyll Rapier":             WPN_OBJ["IrithyllRapier"],
+                 "Lothric Knight Long Spear":   WPN_OBJ["LothricSpear"],
+                 "Lucerne":                     WPN_OBJ["Lucerne"],
+                 "Mace":                        WPN_OBJ["Mace"],
+                 "Lothric Knight S. Sword":     WPN_OBJ["LothricStraightSword"],
+                 "Morning Star":                WPN_OBJ["MorningStar"],
+                 "Partizan":                    WPN_OBJ["Partizan"],
+                 "Pickaxe":                     WPN_OBJ["Pickaxe"],
+                 "Scimitar":                    WPN_OBJ["Scimitar"],
+                 "Saint's Bident":              WPN_OBJ["SaintBident"],
+                 "Soldering Iron":              WPN_OBJ["SolderingIron"],
+                 "Spear":                       WPN_OBJ["Spear"],
+                 "Thrall Axe":                  WPN_OBJ["ThrallAxe"],
+                 "Tailbone Dagger":             WPN_OBJ["TailboneDagger"],
+                 "Vordt's Great Hammer":        WPN_OBJ["VordtsHammer"],
+                 "Warpick":                     WPN_OBJ["Warpick"],
+                 "Winged Spear":                WPN_OBJ["WingedSpear"],
+                 "Wolnir's Holy Sword":         WPN_OBJ["WolnirsHolyBlade"],
+                 "Great Wooden Hammer":         WPN_OBJ["WoodenHammer"],
+                 "Eleonora":                    WPN_OBJ["Eleonora"],
+                 "Arstor's Spear":              WPN_OBJ["ArstorsSpear"],
+                 "Blue Wooden Shield":          SHIELD_OBJ["BlueWooden"],
+                 "Caduceus Round Shield":       SHIELD_OBJ["CaduceusRound"],
+                 "Crimson Parma":               SHIELD_OBJ["Crimson"],
+                 "Iron Round Shield":           SHIELD_OBJ["IronRound"],
+                 "Large Leather Shield":        SHIELD_OBJ["LargeLeather"],
+                 "Plank Shield":                SHIELD_OBJ["Plank"],
+                 "Silver Eagle Kite Shield":    SHIELD_OBJ["SilverEagleKite"],
+                 "Wooden Shield":               SHIELD_OBJ["Wooden"],
+                 "Kite Shield":                 SHIELD_OBJ["Kite"],
+                 "Hawkwood's Shield":           SHIELD_OBJ["Hawkwoods"],
+                 "Twin Dragon Greatshield":     SHIELD_OBJ["TwinDragon"],
+                 "Carthus Rouge +5":            CONS_OBJ["CarthusRouge_5"],
+                 "Charcoal Pine Bundle +5":     CONS_OBJ["CharcoalBundle_5"],
+                 "Charcoal Pine Bundle +10":    CONS_OBJ["CharcoalBundle_10"],
+                 "Charcoal Pine Resin +5":      CONS_OBJ["CharcoalResin_5"],
+                 "Firebomb +5":                 CONS_OBJ["Firebomb_5"],
+                 "Firebomb +10":                CONS_OBJ["Firebomb_10"],
+                 "Green Blossom +5":            CONS_OBJ["GreenBlossom_5"],
+                 "Human Pine Resin +5":         CONS_OBJ["HumanResin_5"],
+                 "Kukri +10":                   CONS_OBJ["Kukri_10"],
+                 "Lightning Urn +5":            CONS_OBJ["LightningUrn_5"],
+                 "Pale Pine Resin +5":          CONS_OBJ["PaleResin_5"],
+                 "Rope Firebomb +5":            CONS_OBJ["RopeFirebomb_5"],
+                 "Rope Firebomb +10":           CONS_OBJ["RopeFirebomb_10"],
+                 "Rotten Pine Resin +5":        CONS_OBJ["RottenResin_5"],
+                 "Throwing Knife +10":          CONS_OBJ["ThrowingKnife_10"],
+                 "Antiquated Set":              ARMOR_OBJ["Antiquated_F"],
+                 "Archdeacon Set":              ARMOR_OBJ["Archdeacon"],
+                 "Assassin Set":                ARMOR_OBJ["Assassin"],
+                 "Assassin Set ":               ARMOR_OBJ["Assassin_F"],
+                 "Black Set":                   ARMOR_OBJ["BlackDress"],
+                 "Black Iron Set":              ARMOR_OBJ["BlackIron"],
+                 "Black Leather Set":           ARMOR_OBJ["BlackLeather"],
+                 "Black Leather Set ":          ARMOR_OBJ["BlackLeather_F"],
+                 "Brass Set":                   ARMOR_OBJ["Brass"],
+                 "Brigand Set":                 ARMOR_OBJ["Brigand_F"],
+                 "Chain Set":                   ARMOR_OBJ["Chain_F"],
+                 "Clandestine Set":             ARMOR_OBJ["Clandestine"],
+                 "Cleric Blue Set":             ARMOR_OBJ["ClericBlue"],
+                 "Cleric Blue Set ":            ARMOR_OBJ["ClericBlue_F"],
+                 "Conjurator Set":              ARMOR_OBJ["Conjurator"],
+                 "Cornyx's Set":                ARMOR_OBJ["Cornyx"],
+                 "Deacon Set":                  ARMOR_OBJ["Deacon_F"],
+                 "Eastern Set":                 ARMOR_OBJ["Eastern"],
+                 "Evangelist Set":              ARMOR_OBJ["Evangelist"],
+                 "Executioner Set":             ARMOR_OBJ["Executioner"],
+                 "Embraced Favor Set":          ARMOR_OBJ["Favor"],
+                 "Fire Witch Set":              ARMOR_OBJ["FireWitch"],
+                 "Hard Leather Set":            ARMOR_OBJ["HardLeather"],
+                 "Hard Leather Set ":           ARMOR_OBJ["HardLeather_F"],
+                 "Jailer Set":                  ARMOR_OBJ["Jailer"],
+                 "Karla's Set":                 ARMOR_OBJ["Karla"],
+                 "Knight Set":                  ARMOR_OBJ["Knight"],
+                 "Mirrah Set":                  ARMOR_OBJ["Mirrah"],
+                 "Old Sorcerer Set":            ARMOR_OBJ["OldSorcerer"],
+                 "Outrider Set":                ARMOR_OBJ["Outrider"],
+                 "Pontiff Knight Set":          ARMOR_OBJ["PontiffKnight"],
+                 "Sellsword Set":               ARMOR_OBJ["Sellsword"],
+                 "Shadow Set":                  ARMOR_OBJ["Shadow_F"],
+                 "Sunset Set":                  ARMOR_OBJ["Sunset"],
+                 "Xanthous Set":                ARMOR_OBJ["Xanthous"]
+                 }
 
-LOOT_RARE   =   {"Uchigatana":                  WPN_OBJ["Uchigatana"],
-                 "Chaos Blade":                 WPN_OBJ["ChaosBlade"]}
+LOOT_RARE   =   {"Astora Greatsword":           WPN_OBJ["AstoraGreatsword"],
+                 "Avelyn":                      WPN_OBJ["Avelyn"],
+                 "Anri's Straight Sword":       WPN_OBJ["AnriSword"],
+                 "Bloodlust":                   WPN_OBJ["Bloodlust"],
+                 "Carthus Curved Sword":        WPN_OBJ["CarthusCurvedSword"],
+                 "Chaos Blade":                 WPN_OBJ["ChaosBlade"],
+                 "Black Knight Greatsword":     WPN_OBJ["BlackKnightGS"],
+                 "Black Knight Sword":          WPN_OBJ["BlackKnightSword"],
+                 "Cathedral Knight Greatsword": WPN_OBJ["CathedralGreatsword"],
+                 "Composite Bow":               WPN_OBJ["CompositeBow"],
+                 "Corvian Greatknife":          WPN_OBJ["CorvianDagger"],
+                 "Demon's Fist":                WPN_OBJ["DemonFist"],
+                 "Dragonslayer's Axe":          WPN_OBJ["DragonslayerAxe"],
+                 "Dragonslayer Spear":          WPN_OBJ["DragonslayerSpear"],
+                 "Drang Hammers":               WPN_OBJ["DrangHammers"],
+                 "Firelink Greatsword":         WPN_OBJ["FirelinkGreatsword"],
+                 "Falchion":                    WPN_OBJ["Falchion"],
+                 "Gargoyle Flame Spear":        WPN_OBJ["GargoyleFlameSpear"],
+                 "Onikiri and Ubadachi":        WPN_OBJ["GotthardKatanas"],
+                 "Large Club":                  WPN_OBJ["LargeClub"],
+                 "Great Machete":               WPN_OBJ["GreatMachete"],
+                 "Great Scythe":                WPN_OBJ["GreatScythe"],
+                 "Greataxe":                    WPN_OBJ["Greataxe"],
+                 "Greatsword":                  WPN_OBJ["Greatsword"],
+                 "Hollowslayer Greatsword":     WPN_OBJ["HollowslayerSword"],
+                 "Manikin Claws":               WPN_OBJ["ManikinClaw"],
+                 "Man Serpent Hatchet":         WPN_OBJ["ManSerpentAxe"],
+                 "Moonlight Greatsword":        WPN_OBJ["MoonlightGreatsword"],
+                 "Morion Blade":                WPN_OBJ["MorionBlade"],
+                 "Murakumo":                    WPN_OBJ["Murakumo"],
+                 "Painting G. Curved Sword":    WPN_OBJ["PaintingCurvedSword"],
+                 "Rapier":                      WPN_OBJ["Rapier"],
+                 "Ricard's Rapier":             WPN_OBJ["RicardsRapier"],
+                 "Sellsword Twinblades":        WPN_OBJ["SellswordTwinblades"],
+                 "Shotel":                      WPN_OBJ["Shotel"],
+                 "Spiked Mace":                 WPN_OBJ["SpikedMace"],
+                 "Uchigatana":                  WPN_OBJ["Uchigatana"],
+                 "Winged Knight Halberd":       WPN_OBJ["WingedKnightHalberd"],
+                 "Winged Knight Twinaxes":      WPN_OBJ["WingedKnightTwinaxes"],
+                 "Old Wolf Curved Sword":       WPN_OBJ["WolfCurvedGS"],
+                 "Zweihander":                  WPN_OBJ["Zweihander"],
+                 "Crest Shield":                SHIELD_OBJ["Crest"],
+                 "Grass Crest Shield":          SHIELD_OBJ["GrassCrest"],
+                 "Pierce Shield":               SHIELD_OBJ["Pierce"],
+                 "Shield of Want":              SHIELD_OBJ["ShieldOfWant"],
+                 "Greatshield of Glory":        SHIELD_OBJ["GreatshieldOfGlory"],
+                 "Sunset Shield":               SHIELD_OBJ["Sunset"],
+                 "Dragon Crest Shield":         SHIELD_OBJ["DragonCrest"],
+                 "Ancient Dragon Greatshield":  SHIELD_OBJ["AncientDragon"],
+                 "Black Firebomb +5":           CONS_OBJ["BlackFirebomb_5"],
+                 "Black Firebomb +10":          CONS_OBJ["BlackFirebomb_10"],
+                 "Charcoal Pine Resin +10":     CONS_OBJ["CharcoalResin_10"],
+                 "Duel Charm +5":               CONS_OBJ["DuelCharm_5"],
+                 "Gold Pine Bundle +10":        CONS_OBJ["GoldBundle_10"],
+                 "Gold Pine Resin +5":          CONS_OBJ["GoldResin_5"],
+                 "Lightning Urn +10":           CONS_OBJ["LightningUrn_10"],
+                 "Poison Throwing Knife +10":   CONS_OBJ["PoisonThrowingKnife_10"],
+                 "Rope Black Firebomb +10":     CONS_OBJ["RopeBlackFirebomb_10"],
+                 "Alva Set":                    ARMOR_OBJ["Alva"],
+                 "Archdeacon Set":              ARMOR_OBJ["Archdeacon_F"],
+                 "Black Set":                   ARMOR_OBJ["BlackDress_F"],
+                 "Black Hand Set":              ARMOR_OBJ["BlackHand_F"],
+                 "Black Knight Set":            ARMOR_OBJ["BlackKnight"],
+                 "Catarina Set":                ARMOR_OBJ["Catarina"],
+                 "Cornyx's Set":                ARMOR_OBJ["Cornyx_F"],
+                 "Court Sorcerer Set":          ARMOR_OBJ["CourtSorcerer_F"],
+                 "Dancer's Set":                ARMOR_OBJ["Dancers"],
+                 "Dancer's Set ":               ARMOR_OBJ["Dancers_F"],
+                 "Drakeblood Set":              ARMOR_OBJ["Drakeblood"],
+                 "Eastern Set":                 ARMOR_OBJ["Eastern_F"],
+                 "Exile Set":                   ARMOR_OBJ["Exile"],
+                 "Embraced Favor Set":          ARMOR_OBJ["Favor_F"],
+                 "Firelink Set":                ARMOR_OBJ["Firelink"],
+                 "Gundyr's Set":                ARMOR_OBJ["Gundyr"],
+                 "Herald Set":                  ARMOR_OBJ["Herald_F"],
+                 "Leonhard's Set":              ARMOR_OBJ["Leonhard"],
+                 "Mirrah Set":                  ARMOR_OBJ["Mirrah_F"],
+                 "Nameless Knight Set":         ARMOR_OBJ["NamelessKnight_F"],
+                 "Lothric Knight Set":          ARMOR_OBJ["Lothric"],
+                 "Sunlight Set":                ARMOR_OBJ["SunArmor"],
+                 "Sunless Set":                 ARMOR_OBJ["Sunless_F"],
+                 "Wolf Knight Set":             ARMOR_OBJ["WolfKnight"]
+                 }
 
 LOOT_ULTRA  =   {"Black Knight Greataxe":       WPN_OBJ["BlackKnightGA"],
                  "Black Knight Glaive":         WPN_OBJ["BlackKnightHalberd"],
@@ -555,19 +745,23 @@ LOOT_ULTRA  =   {"Black Knight Greataxe":       WPN_OBJ["BlackKnightGA"],
                  "Silver Knight Shield":        SHIELD_OBJ["SilverKnight"],
                  "Target Shield":               SHIELD_OBJ["Target"],
                  "Gold Pine Resin +20":         CONS_OBJ["GoldResin_20"],
-                 "Repaired a Ring!":            CONS_OBJ["Repaired"]}
+                 "Repaired a Ring!":            CONS_OBJ["Repaired"]
+                 }
 
 LOOT_MISF   =   {"Chest Broken":                MISF_OBJ["Chest"],
+                 "Chest Broken":                MISF_OBJ["Chest"],
                  "Confused!":                   MISF_OBJ["Confused"],
                  "Cursed!":                     MISF_OBJ["Cursed"],
                  "Guantlets Broken":            MISF_OBJ["Hand"],
                  "Helm Broken":                 MISF_OBJ["Head"],
                  "Leggings Broken":             MISF_OBJ["Leg"],
                  "Left Hand 1 Broken":          MISF_OBJ["LH1"],
+                 "Left Hand 1 Broken ":         MISF_OBJ["LH1"],
                  "Left Hand 2 Broken":          MISF_OBJ["LH2"],
                  "Left Hand 3 Broken":          MISF_OBJ["LH3"],
                  "Lucked Out!":                 MISF_OBJ["Lucky"],
                  "Right Hand 1 Broken":         MISF_OBJ["RH1"],
+                 "Right Hand 1 Broken ":        MISF_OBJ["RH1"],
                  "Right Hand 2 Broken":         MISF_OBJ["RH2"],
                  "Right Hand 3 Broken":         MISF_OBJ["RH3"],
                  "Ring 1 Broken":               MISF_OBJ["Ring1"],
@@ -575,9 +769,10 @@ LOOT_MISF   =   {"Chest Broken":                MISF_OBJ["Chest"],
                  "Ring 3 Broken":               MISF_OBJ["Ring3"],
                  "Ring 4 Broken":               MISF_OBJ["Ring4"],
                  "Spell Forgotten":             MISF_OBJ["Spell"],
-                 "Tripped!":                    MISF_OBJ["Tripped"]}
+                 "Tripped!":                    MISF_OBJ["Tripped"]
+                 }
 
-if(ENABLE_USER_LOOT == True):
+if(ENABLE_USER_LOOT):
     enableUserLoot()
 
 #==============================================================================#
@@ -622,18 +817,37 @@ def newCursor(arrow):
 def includePyro():
     global LOOT_CMN; global LOOT_RARE; global LOOT_ULTRA;
 
+    LOOT_CMN.update(  {"Black Fire Orb":        SPELL_OBJ["BlackFireOrb"],
+                       "Boulder Heave":         SPELL_OBJ["BoulderHeave"],
+                       "Bursting Fireball":     SPELL_OBJ["BurstingFireball"],
+                       "Fireball":              SPELL_OBJ["Fireball"],
+                       "Fire Orb":              SPELL_OBJ["FireOrb"],
+                       "Fire Surge":            SPELL_OBJ["FireSurge"],
+                       "Profaned Flame":        SPELL_OBJ["ProfanedFlame"],
+                       "Toxic Mist":            SPELL_OBJ["ToxicMist"],
+                       "Carthus Beacon":        SPELL_OBJ["CarthusBeacon"],
+                       "Iron Flesh":            SPELL_OBJ["IronFlesh"]})
+    
+    LOOT_RARE.update( {"Great Combustion":      SPELL_OBJ["GreatCombustion"],
+                       "Chaos Storm":           SPELL_OBJ["ChaosStorm"],
+                       "Black Flame":           SPELL_OBJ["BlackFlame"],
+                       "Fire Whip":             SPELL_OBJ["FireWhip"],
+                       "Power Within":          SPELL_OBJ["PowerWithin"],
+                       "Sacred Flame":          SPELL_OBJ["SacredFlame"]})
+
     LOOT_ULTRA.update({"Black Serpent":         SPELL_OBJ["BlackSerpent"],
                        "Carthus Flame Arc":     SPELL_OBJ["CarthusFlameArc"],
                        "Chaos Bed Vestiges":    SPELL_OBJ["ChaosBedVestiges"],
                        "Great Chaos Fire Orb":  SPELL_OBJ["GreatChaosFireOrb"],
                        "Warmth":                SPELL_OBJ["Warmth"]})
-    LOOT_RARE.update( {"Great Combustion":      SPELL_OBJ["GreatCombustion"],
-                       "Chaos Storm":           SPELL_OBJ["ChaosStorm"]})
 
 def setTxtColor(color):
     global TXT_COLOR
-    
-    TXT_COLOR = color
+
+    if(isinstance(color, tuple)):
+        TXT_COLOR = color
+    else:
+        raise ValueError("Passed Color was not RGB tuple!")
 
 def helpScreen():
     global TUT_ARROW; global MAIN_HELP; global MUTE_FX
@@ -783,6 +997,7 @@ def textChanger():
                     switch2_fx.play()
                 setTxtColor(tempColor)
                 TXT_CHANGER = False
+                
             #If the program is closed, exit:
             elif event.type == dks.QUIT:
                 RUNNING = False
@@ -836,17 +1051,16 @@ def generateRoll():
         currentRoll += "1 Common"
     elif(cmn_rand >= 755): #24.5% Chance, 2 common
         currentRoll += "2 Common"
-    print ("CMN: ",cmn_rand)
+    #print("COMMON ROLL: ", cmn_rand)   // Debugging Purposes
     
     currentRoll += ", "
 
-    if(rare_rand < 710): #71% Chance, 0 rare
+    if(rare_rand < 660): #66% Chance, 0 rare
         currentRoll += "0 Rare"
-    elif((rare_rand >= 710) & (rare_rand < 910)): #20% Chance, 1 rare
+    elif((rare_rand >= 660) & (rare_rand < 900)): #24% Chance, 1 rare
         currentRoll += "1 Rare"
-    elif(rare_rand >= 910): #9% Chance, 2 rare
+    elif(rare_rand >= 900): #10% Chance, 2 rare
         currentRoll += "2 Rare"
-    print ("RARE: ",rare_rand)
     
     currentRoll += ", "
 
@@ -854,7 +1068,6 @@ def generateRoll():
         currentRoll += "0 Ultra"
     elif(ultra_rand >= 975): #2.5% Chance, 1 ultra
         currentRoll += "1 Ultra"
-    print ("ULTRA: ",ultra_rand)
     
     currentRoll += ", "
 
@@ -862,10 +1075,9 @@ def generateRoll():
         currentRoll += "0 Misfortune"
     elif(misf_rand >= 950): #5% Chance, 1 misfortune
         currentRoll += "1 Misfortune"
-    print ("MISF: ",misf_rand)
 
     # If you get nothing, 70% chance for 1 common, 30% chance for 1 rare.
-    if((cmn_rand < 100) & (rare_rand < 720) & (ultra_rand < 985)):
+    if((cmn_rand < 100) & (rare_rand < 720) & (ultra_rand < 975)):
         staleRand = rnd.randint(0, 9)
         if(staleRand < 7):
             currentRoll = "1 Common, 0 Rare, 0 Ultra, 0 Misfortune"
@@ -874,6 +1086,57 @@ def generateRoll():
 
     lootRoll_ON = True
 
+def generateHardRoll():
+    global currentRoll
+    global lootRoll_ON
+
+    currentRoll = ""
+
+    cmn_rand    = rnd.randint(0, 1000)
+    rare_rand   = rnd.randint(0, 1000)
+    ultra_rand  = rnd.randint(0, 1000)
+    misf_rand   = rnd.randint(0, 1000)
+
+    if(cmn_rand < 150): #15% Chance, 0 common
+        currentRoll += "0 Common"
+    elif((cmn_rand >= 150) & (cmn_rand < 850)): #70% Chance, 1 common
+        currentRoll += "1 Common"
+    elif(cmn_rand >= 850): #15% Chance, 2 common
+        currentRoll += "2 Common"
+    
+    currentRoll += ", "
+
+    if(rare_rand < 800): #80% Chance, 0 rare
+        currentRoll += "0 Rare"
+    elif((rare_rand >= 800) & (rare_rand < 940)): #14% Chance, 1 rare
+        currentRoll += "1 Rare"
+    elif(rare_rand >= 940): #6% Chance, 2 rare
+        currentRoll += "2 Rare"
+    
+    currentRoll += ", "
+
+    if(ultra_rand < 983): #98.3% Chance, 0 ultra
+        currentRoll += "0 Ultra"
+    elif(ultra_rand >= 983): #1.7% Chance, 1 ultra
+        currentRoll += "1 Ultra"
+    
+    currentRoll += ", "
+
+    if(misf_rand < 910): #91% Chance, 0 misfortune
+        currentRoll += "0 Misfortune"
+    elif(misf_rand >= 910): #9% Chance, 1 misfortune
+        currentRoll += "1 Misfortune"
+
+    # If you get nothing, 85% chance for 1 common, 15% chance for 1 rare.
+    if((cmn_rand < 150) & (rare_rand < 800) & (ultra_rand < 983)):
+        staleRand = rnd.randint(1, 100)
+        if(staleRand < 85):
+            currentRoll = "1 Common, 0 Rare, 0 Ultra, 0 Misfortune"
+        elif(staleRand >= 85):
+            currentRoll = "0 Common, 1 Rare, 0 Ultra, 0 Misfortune" 
+
+    lootRoll_ON = True
+    
 def grabLoot(category):
     
     if(category.lower() == "common"):
@@ -1714,7 +1977,10 @@ while(RUNNING):
         elif event.type == (dks.MOUSEBUTTONUP) and (inGEM.collidepoint(pos) == 1) and (TXT_CHANGER == False):
             if not (MUTE_FX):
                 coin_fx.play()
-            generateRoll()
+            if(DIFF == 1):
+                generateRoll()
+            elif(DIFF == 2):
+                generateHardRoll()
             dks.event.clear(dks.MOUSEBUTTONUP)
             
         elif event.type == (dks.MOUSEBUTTONUP) and (inCOMM1.collidepoint(pos) == 1) and (LOOT_CLICK1 == False) and (TXT_CHANGER == False):
