@@ -206,7 +206,10 @@ dks.font.init()
 #               !! FOR VERSIONING PURPOSES, DO NOT EDIT !!                     #
 #------------------------------------------------------------------------------#
 # Version number string, along with internal BETA flag.
-VERSION_NO  = "v0.7"
+# Current Ver. No: 1.0
+# VERSION LAST UPDATED: 7/7/2016
+#------------------------------------------------------------------------------#
+VERSION_NO  = "v1.0"
 BETA        = True
 
 # Add BETA to the caption according to internal flag.
@@ -681,6 +684,25 @@ def blitAlpha(target, source, location, opacity):
         target.blit(temp, location)
 #------------------------------------------------------------------------------#
 
+#------------------------------------------------------------------------------#
+#               -- Update Hard Mode Loot Tables --                             #
+#------------------------------------------------------------------------------#
+# This function updates the loot tables to remove a couple items while in      #
+# hard mode. Can be modified in the future.
+def updateHLoot():
+
+    # Do not remove global definitions.
+    global LOOT_CMN; global LOOT_RARE; global LOOT_ULTRA; global LOOT_MISF
+
+    del LOOT_RARE["Black Knight Sword"]
+    del LOOT_RARE["Avelyn"]
+    del LOOT_CMN["Eleonora"]
+    del LOOT_CMN["Firebomb +5"]
+    del LOOT_CMN["Halberd"]
+    del LOOT_RARE["Greatshield of Glory"]
+
+#------------------------------------------------------------------------------#
+    
 #------------------------------------------------------------------------------#
 #               -- Generate A Loot Roll (Easy)--                               #
 #------------------------------------------------------------------------------#
@@ -1360,6 +1382,8 @@ def lootCoin(category, spot):
             # Loot 6 is now active.
             LOOT_6ON = True
 #------------------------------------------------------------------------------#
+
+
 #==============================================================================#
 #                   LOAD IMAGES AND SOUND FILES                                # 
 #==============================================================================#
@@ -1984,15 +2008,10 @@ inBEGIN     =   dks.Rect((304, 312), (340, 123))
 inTWITTER   =   dks.Rect((545, 478), (394, 33))
 inGITHUB    =   dks.Rect((281, 549), (658, 34))
 
-# Fade in the screen from black. May remove at a later date due to unresponsiveness.
-for i in range(255):
-    # Fill the screen with black, increase the alpha of the Title Screen each iteration.
-    # Then update the display.
-    screen.fill((0,0,0))
-    IN_1.set_alpha(i)
-    screen.blit(IN_1, (0,0))
-    dks.display.update()
-    CL.tick(120)
+# Screen set and updated. Changed from a fade in due to unresponsiveness.
+# It's less pleasing to the eye but generally a lot more efficient.
+screen.blit(IN_1, (0,0))
+dks.display.update()
 
 # Clear all queued events to prevent double registering.
 dks.event.clear()
@@ -2424,7 +2443,11 @@ while(INTRO == 4):
             RUNNING = False
             dks.quit()
             sys.exit()
-            
+
+# If difficulty is Hard, update the loot tables via function.
+if(DIFF == 2):
+    updateHLoot()
+    
 #==============================================================================#
 #                   INTRO INDEX 5: MAIN PROGRAM SCREEN / RAGS TO RICHES        # 
 #==============================================================================#
@@ -2434,7 +2457,7 @@ while(INTRO == 4):
 
 # Initial Check before creating elements:
 if(INTRO == 5):
-
+    
     # Rectangular coordinates, hitboxes for several thing:
     # 1:  Green Loot Gem
     # 2:  Reset Loot Button
