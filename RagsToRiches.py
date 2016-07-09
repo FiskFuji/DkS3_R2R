@@ -61,7 +61,7 @@
 #   with your fans and followers. I wish I had a little bit more help from     # 
 #   some of the people I reached out to, but they have lives and things to     # 
 #   take care of. A note to any of you reading this: Never feel like you're    # 
-#   important to help people who reach out to you. I appreciate it.            # 
+#   too important to help people who reach out to you. I appreciate it.        # 
 #   Thank you.                                                                 # 
 #                                                                              #
 ################################################################################
