@@ -28,7 +28,7 @@
 #   Python:                                                                    # 
 #   https://www.python.org/                                                    # 
 #   ===================================                                        # 
-#   PyGame 1.7.9:                                                              # 
+#   PyGame 1.9.1:                                                              # 
 #   http://www.pygame.org/hifi.html                                            # 
 #   ===================================                                        # 
 #                                                                              # 
