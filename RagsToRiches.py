@@ -22,13 +22,13 @@
 #                   Welcome to Dark Souls 3 Rags to Riches!                    # 
 #   You are currently viewing the source code to DkS 3 Rags to Riches. This    # 
 #   code was made open source by GitHub and Cloud9 IDE. This program is        # 
-#   written in Python 2.7.9 with the use of PyGame 1.7.9.                      # 
+#   written in Python 2.7.9 with the use of PyGame 1.9.1.                      # 
 #   Check out the official pages below:                                        # 
 #   ===================================                                        # 
 #   Python:                                                                    # 
 #   https://www.python.org/                                                    # 
 #   ===================================                                        # 
-#   PyGame 1.7.9:                                                              # 
+#   PyGame 1.9.1:                                                              # 
 #   http://www.pygame.org/hifi.html                                            # 
 #   ===================================                                        # 
 #                                                                              # 
@@ -61,7 +61,7 @@
 #   with your fans and followers. I wish I had a little bit more help from     # 
 #   some of the people I reached out to, but they have lives and things to     # 
 #   take care of. A note to any of you reading this: Never feel like you're    # 
-#   important to help people who reach out to you. I appreciate it.            # 
+#   too important to help people who reach out to you. I appreciate it.        # 
 #   Thank you.                                                                 # 
 #                                                                              #
 ################################################################################
